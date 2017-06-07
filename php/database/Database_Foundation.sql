@@ -39,7 +39,7 @@ CREATE TABLE Persons (
     ,nname VARCHAR (50)
     ,vname VARCHAR (50)
     ,personsgender CHAR (1) NOT NULL
-    ,campaignteamID INT NOT NULL
+    ,campaignteamID INT
     ,FOREIGN KEY (campaignteamID) REFERENCES Campaignteam (campaignteamID)
     ,PRIMARY KEY (personsID)
     );
@@ -55,7 +55,7 @@ CREATE TABLE Campaign (
     ,priorityID INT NOT NULL
     ,FOREIGN KEY (costumerID) REFERENCES Costumer (costumerID)
     ,FOREIGN KEY (campaignteamID) REFERENCES Campaignteam (campaignteamID)
-    ,Foreign KEY (priorityID) REFERENCES Priority (priorityID)
+    ,FOREIGN KEY (priorityID) REFERENCES Priority (priorityID)
 	,PRIMARY KEY (campaignID)
 	);
     
@@ -65,7 +65,7 @@ CREATE TABLE Eventplanning (
     ,beginofevent DATE
     ,endofevent DATE
     ,campaignID INT NOT NULL
-    ,venueID INT NOT NULL
+    ,venueID INT 
     ,priorityID INT NOT NULL
     ,FOREIGN KEY (campaignID) REFERENCES Campaign (campaignID)
     ,FOREIGN KEY (venueID) REFERENCES Venue (venueID)
@@ -74,20 +74,15 @@ CREATE TABLE Eventplanning (
     );
 	
 
-    
-    
-    
-    
-    
-
-
-
-
-
-
-
-
+   
 
 CREATE USER 'Johnny'@'localhost' IDENTIFIED BY 'ibimsadatenbank';
 GRANT ALL PRIVILEGES ON * . * TO 'Johnny'@'localhost';
+CREATE USER 'Kevin'@'localhost' IDENTIFIED BY '123';
+GRANT ALL PRIVILEGES ON * . * TO 'Kevin'@'localhost';
+CREATE USER 'Tino'@'localhost' IDENTIFIED BY 'okeausdemsenegal';
+GRANT ALL PRIVILEGES ON * . * TO 'Tino'@'localhost';
+CREATE USER 'Michael'@'localhost' IDENTIFIED BY 'grussundsonne';
+GRANT ALL PRIVILEGES ON * . * TO 'Michael'@'localhost';
+
 FLUSH PRIVILEGES; 
