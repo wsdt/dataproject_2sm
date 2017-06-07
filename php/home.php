@@ -12,8 +12,8 @@
         include_once 'database/dbNoAuthorization.php';
     } //no need for else, because script stops php from executing
 
-    $user = $_POST['username'];
-    $pwd = $_POST['password'];
+    $user = mysqli_real_escape_string($tunnel,$_POST['username']);
+    $pwd = mysqli_real_escape_string($tunnel, $_POST['password']);
     include_once 'database/dbNewConnection.php'; //Connection can be only established when user and pwd are defined!
 
     // LOAD PAGE -------------------------------------------------------------------------------------------------
