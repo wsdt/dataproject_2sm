@@ -15,7 +15,7 @@
         } else {
             include_once 'database/dbNoAuthorization.php';
         }
-    } else if (!empty($_POST['username']) && !empty($_POST['$pwd'])) {
+    } else if (!empty($_POST['username']) && !empty($_POST['password'])) {
         $user = $_POST['username']; //TODO: evtl escapen über php klasse dbEscapeStrings
         $pwd = $_POST['password'];
         setcookie("username",$user,time()+60*60*12); //Cookies laufen in 12h ab
