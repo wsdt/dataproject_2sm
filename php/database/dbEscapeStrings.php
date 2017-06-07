@@ -8,7 +8,15 @@
  */
 class dbEscapeStrings
 {
-    function escapeStrings($string) {
-        return mysqli::real_escape_string($string);
+    public static $stringtoescape;
+
+    public function getString() {
+        return $stringtoescape;
     }
 }
+
+$obj = new dbEscapeStrings();
+mysqli::real_escape_string($obj->getString();
+
+// TODO: Strings escapen for SQL Injections
+

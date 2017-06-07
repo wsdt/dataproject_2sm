@@ -8,12 +8,20 @@
 </head>
 <body>
 <?php
-    if (empty($_REQUEST)) {
-        include_once 'database/dbNoAuthorization.php';
-    } //no need for else, because script stops php from executing
+    if (empty($_REQUEST) || empty($_COOKIE)) {
+        if (!empty($_COOKIE['username']) && !empty($_COOKIE['password'])) {
+            $user = $_COOKIE['username'];
+            $pwd = $_COOKIE['password'];
+        } else {
+            include_once 'database/dbNoAuthorization.php';
+        }
+    } else if (!empty($_POST['username']) && !empty($_POST['$pwd'])) {
+        $user = $_POST['username']; //TODO: evtl escapen über php klasse dbEscapeStrings
+        $pwd = $_POST['password'];
+        setcookie("username",$user,time()+60*60*12); //Cookies laufen in 12h ab
+        setcookie("password",$pwd,time()+60*60*12); //Cookies laufen in 12h ab
+    }
 
-    $user = $_POST['username'];
-    $pwd = $_POST['password'];
     include_once 'database/dbNewConnection.php'; //Connection can be only established when user and pwd are defined!
 
     // LOAD PAGE -------------------------------------------------------------------------------------------------
