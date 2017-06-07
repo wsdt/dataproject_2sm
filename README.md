@@ -1,4 +1,4 @@
-# dataproject_2sm
+# dataproject_2sm - Szenario 10 (Abwicklung von Marketingkampagnen)
 - [ ] Projektbericht (PDF) [max. 5 DIN A4 Seiten]
 	- Deckblatt (Bezeichnung Szenario, Namen, Matrikelnummern)
 	- Vorgehen dokumentieren
