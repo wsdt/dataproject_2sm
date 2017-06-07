@@ -8,7 +8,7 @@
 </head>
 <body>
 <?php
-    if (empty($_REQUEST) || empty($_COOKIE)) {
+    if (empty($_REQUEST)) {
         if (!empty($_COOKIE['username']) && !empty($_COOKIE['password'])) {
             $user = $_COOKIE['username'];
             $pwd = $_COOKIE['password'];
@@ -20,6 +20,8 @@
         $pwd = $_POST['password'];
         setcookie("username",$user,time()+60*60*12); //Cookies laufen in 12h ab
         setcookie("password",$pwd,time()+60*60*12); //Cookies laufen in 12h ab
+    } else {
+        include_once 'database/dbNoAuthorization.php';
     }
 
     include_once 'database/dbNewConnection.php'; //Connection can be only established when user and pwd are defined!
