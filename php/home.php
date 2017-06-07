@@ -3,16 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Blue Surface Seeker</title>
-    <link href="../css/authorization.css">
+    <link href="../css/general.css" rel="stylesheet">
 
 </head>
 <body>
 <?php
     if (empty($_REQUEST)) {
-        echo "<div class='authorization_failed'><h1>Authorization Error</h1>";
-        echo "<p>You have no permission to view this site. Please call your system-administrator. </p></div>";
-    }
+        include_once 'database/dbNoAuthorization.php';
+    } //no need for else, because script stops php from executing
 
+    $user = $_POST['username'];
+    $pwd = $_POST['password'];
+    include_once 'database/dbNewConnection.php'; //Connection can be only established when user and pwd are defined!
+
+    // LOAD PAGE -------------------------------------------------------------------------------------------------
+
+    echo "<h1>Success!!!!!</h1>";
+
+
+
+
+
+
+
+
+    // LOAD PAGE END ----------------------------------------------------------------------------------------------
+
+    //Close database connection and report an error if it did not work
+    if(!mysqli_close($tunnel)) {
+        echo "<p><strong style='color:#ff0000;'>PHP Error: </strong>Verbindung konnte nicht geschlossen werden.</p>";
+    }
 
 ?>
 </body>
