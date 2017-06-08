@@ -5,7 +5,7 @@ USE MARKETINGCOMPANY;
 
 CREATE TABLE Campaignteam (
 	campaignteamID INT AUTO_INCREMENT
-    ,campaignteamname VARCHAR (50)
+    ,teamname VARCHAR (50)
     ,PRIMARY KEY (campaignteamID)
     ); 
 	    
@@ -22,6 +22,8 @@ CREATE TABLE Costumer (
 CREATE TABLE Venue (
 	venueID INT AUTO_INCREMENT
     ,venuename VARCHAR (50)
+    ,country VARCHAR (50)
+    ,adress VARCHAR (50)
     ,maxPersons INTEGER
     , PRIMARY KEY (venueID)
     );
@@ -30,6 +32,7 @@ CREATE TABLE Venue (
 CREATE TABLE Priority (
 	priorityID INT AUTO_INCREMENT
     , prioritycolour VARCHAR (50)
+    , hexcode VARCHAR (50)
     , PRIMARY KEY (priorityID)
 	);
 
@@ -51,7 +54,7 @@ CREATE TABLE Campaign (
     ,dateofbegin DATE
     ,dateofend DATE
     ,costumerID INT NOT NULL
-    ,campaignteamID INT NOT NULL
+    ,campaignteamID INT 
     ,priorityID INT NOT NULL
     ,FOREIGN KEY (costumerID) REFERENCES Costumer (costumerID)
     ,FOREIGN KEY (campaignteamID) REFERENCES Campaignteam (campaignteamID)
