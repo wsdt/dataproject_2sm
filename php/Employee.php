@@ -53,7 +53,7 @@ class Employee
     function loadUser_from_DB($username) // = BENUTZERPROFIL aus Datenbank laden
     {
         require 'db/dbNewConnection.php';
-        $sql = "SELECT * FROM Employee WHERE Username = '".$username."';";
+        $sql = "SELECT * FROM Employees WHERE Username = '".$username."';";
         $user = mysqli_query($tunnel, $sql);
         if (empty($user)) {
             $this->closeDBConnection($tunnel);
@@ -76,8 +76,8 @@ class Employee
     function DB_addUser()
     {
         if ($this->isUsernameAvailable()) {
-            require 'db/dbNewConnection.php';
-            $sql = "INSERT INTO Users (username, passwort) VALUES ('" . $this->getUsername() . "', '" . $this->getPasswordHash() . "');";
+            $tunnel = $this->establishDBConnection();
+            $sql = "INSERT INTO Employees (username, passwort) VALUES ('" . $this->getUsername() . "', '" . $this->getPasswordHash() . "');";
             $result = mysqli_query($tunnel, $sql);
 
             $this->closeDBConnection($tunnel);
@@ -96,9 +96,9 @@ class Employee
 
     function DB_deleteUser()
     { //works, tested
-        require 'db/dbNewConnection.php';
-        $sql_hc = "DELETE FROM Highscore WHERE Username='".$this->getUsername()."';"; //Lösche auch Highscore-Eintrag
-        $sql_us = "DELETE FROM Users WHERE Username='".$this->getUsername()."';";
+        $tunnel = $this->establishDBConnection();
+        //$sql_hc = "DELETE FROM Highscore WHERE Username='".$this->getUsername()."';"; //Lösche auch Einträge von in Beziehung stehenden Tabellen
+        $sql_us = "DELETE FROM Employees WHERE Username='".$this->getUsername()."';";
         $result = mysqli_query($tunnel, $sql_hc);
         $result2 = mysqli_query($tunnel, $sql_us);
         if (!$result || !$result2) {
@@ -111,10 +111,10 @@ class Employee
 
     function isUsernameAvailable()
     {
-        require "db/dbNewConnection.php"; //Nicht require_once da sonst evtl. nur einmal für diese Datei aufgerufen
+        $tunnel = $this->establishDBConnection(); //Nicht require_once da sonst evtl. nur einmal für diese Datei aufgerufen
 
         $control = 0;
-        $sql = "SELECT username FROM Users WHERE username = '" . $this->username . "'";
+        $sql = "SELECT Username FROM Employees WHERE username = '" . $this->username . "'";
         $result = mysqli_query($tunnel, $sql) or die("DB ERROR: Verbindung konnte nicht hergestellt werden! [in isUsernameAvailable()]");
         while ($row = mysqli_fetch_object($result)) {
             $control++;
@@ -136,6 +136,10 @@ class Employee
         if (!mysqli_close($tunnel)) {
             echo "FATAL_ERROR: Datenbank-Verbindung konnte nicht geschlossen werden. [in isUsernameAvailable()]";
         }
+    }
+
+    function establishDBConnection() {
+        return require 'db/dbNewConnection.php'; //Gib Tunnel zurück
     }
 
 //Getter/Setter definieren

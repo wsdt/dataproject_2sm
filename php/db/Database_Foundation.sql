@@ -83,7 +83,7 @@ db-connection in our web-project. In our example all following accounts are admi
 CREATE TABLE Employees (
 	Username VARCHAR(50),
     Passwort VARCHAR(255), /* HASH Wert, braucht viel Platz */
-    isAdmin BOOLEAN,
+    isAdmin BOOLEAN not null default 0, /* Default 0 = false, if true user is admin! */
     PRIMARY KEY (Username)
     /*FOREIGN KEY DERWEIL LEER GELASSEN*/
 )
