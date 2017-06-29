@@ -85,7 +85,7 @@ CREATE TABLE Employees (
     Passwort VARCHAR(255), /* HASH Wert, braucht viel Platz */
     isAdmin BOOLEAN not null default 0, /* Default 0 = false, if true user is admin! */
     PRIMARY KEY (Username)
-    /*FOREIGN KEY DERWEIL LEER GELASSEN*/
+    /*TODO: FOREIGN KEY DERWEIL LEER GELASSEN*/
 )
 /*
 CREATE USER 'Johnny'@'localhost' IDENTIFIED BY 'ibimsadatenbank';

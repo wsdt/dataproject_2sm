@@ -6,6 +6,6 @@
     }*/
 
 	$tunnel = mysqli_connect($server, $user, $pwd, $db) or die(include_once 'dbNoAuthorization.php');
-
+    return $tunnel;
 	//echo "<p><strong>PHP Info: </strong>DB Verbindung erfolgreich hergestellt.</p>";
 ?>

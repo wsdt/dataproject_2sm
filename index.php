@@ -68,26 +68,55 @@
         }
         input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgba(255,255,255,0.2); }
 
-        #notification_registerforgotpassw {
+        /* LOGIN / REGISTER FORM */
+        .notification_login_register {
             font-size:9px;
             color:#ccc;
-
         }
+
+        .notification_login_register a {
+            color:#fff;
+            cursor:pointer;
+        }
+
     </style>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
     <script type="text/javascript" src="js/login_logout.js"></script>
+    <link href="css/general.css"/>
 
 </head>
 
-<body>
+<body onload="pruefeLoginRegisterAccurate()">
+<?php
+//Ausnahme für Login (Fehlerseite soll hier nicht angezeigt werden, wenn Fehler bei Authentifizierung
+//IMPORTANT: Employees should login every time, but once logged in they can navigate within their sites with cookies
+
+/*include_once 'php/Employee.php';
+if (isset($_COOKIE['Username']) && isset($_COOKIE['Passwort'])) {
+    $current_employee = new Employee();
+    $current_employee->setUsername($_COOKIE['Username']);
+    $current_employee->setPasswordHash($_COOKIE['Passwort']); //Übergib Pwd als Hash, da in Cookie Hash gespeichert sein sollte.
+    //Standard = kein Admin
+    if($current_employee->authentificateUser($current_employee->getPasswordHash(),true,true)) {
+        //Wenn Authentifizierung sogar noch erfolgreich leite zur nächsten Seite weiter
+        header('Location: '.$_SERVER['PHP_SELF'].'/php/home.php');
+    }
+} //Else do nothing and let user login or register
+echo $_SERVER['PHP_SELF'].'/php/home.php';
+var_dump($_COOKIE);*/
+?>
+
 <div class="login">
     <h1>Employee-Login</h1>
-    <form method="post" action="php/home.php">
-        <input type="text" name="username" id="username" placeholder="Username" required="required" />
-        <input type="password" name="password" id="password" placeholder="Password" required="required" />
+    <form method="post" action="php/home.php" onsubmit="return validateLoginRegisterForm()" novalidate>
+        <input type="text" name="Username" id="username" placeholder="Username" required="required" />
+        <input type="password" name="Passwort" id="password" placeholder="Password" required="required" />
+        <input type="password" style="display:none;" name="Passwort_repeat" id="password_repeat" placeholder="Repeat password" required="required"/>
+        <input type="hidden" value="login" name="login_or_register" id="login_or_register"/>
         <button type="submit" class="btn btn-primary btn-block btn-large">Let's work</button>
-        <p id="notification_registerforgotpassw">Eine Registrierung sowie das Zurücksetzen eines Passworts kann nur mit dem Systemadministrator durchgeführt werden. </p>
+        <p class="notification_login_register">Das Zurücksetzen eines Passworts kann nur mit dem Systemadministrator durchgeführt werden.
+            </p><p class="notification_login_register" id="register_login_convert_label"><strong>No account? Register <a onclick="convertLoginRegisterForm()">here</a>.</strong></p>
     </form>
 </div>
 

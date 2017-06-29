@@ -3,5 +3,9 @@
 	$db = "MARKETINGCOMPANY";
 	/* OUTDATED: USER AND PASSWORD GET DECLARED WITH THE LOGIN PANEL*/
 	 $user = "root";
-	$pwd = "";
+	 if (get_current_user() == "kevin") {
+	     $pwd = "NjGrdE9Rjkj32nhvVGf89aQgOIJ5H65O";
+     } else {
+         $pwd = "";
+     }
 ?>
