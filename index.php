@@ -76,6 +76,7 @@
     </style>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    <script type="text/javascript" src="js/login_logout.js"></script>
 
 </head>
 
@@ -83,14 +84,13 @@
 <div class="login">
     <h1>Employee-Login</h1>
     <form method="post" action="php/home.php">
-        <input type="text" name="username" placeholder="Username" required="required" />
-        <input type="password" name="password" placeholder="Password" required="required" />
+        <input type="text" name="username" id="username" placeholder="Username" required="required" />
+        <input type="password" name="password" id="password" placeholder="Password" required="required" />
         <button type="submit" class="btn btn-primary btn-block btn-large">Let's work</button>
         <p id="notification_registerforgotpassw">Eine Registrierung sowie das Zurücksetzen eines Passworts kann nur mit dem Systemadministrator durchgeführt werden. </p>
     </form>
 </div>
 
-<script src="js/index.js"></script>
 
 </body>
 </html>

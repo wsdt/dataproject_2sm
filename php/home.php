@@ -8,23 +8,25 @@
 </head>
 <body>
 <?php
-    if (empty($_REQUEST)) {
+    if (empty($_POST)) {
         if (!empty($_COOKIE['username']) && !empty($_COOKIE['password'])) {
             $user = $_COOKIE['username'];
             $pwd = $_COOKIE['password'];
         } else {
-            include_once 'database/dbNoAuthorization.php';
+            include_once 'db/dbNoAuthorization.php';
         }
-    } else if (!empty($_POST['username']) && !empty($_POST['password'])) {
+    } else if (isset($_POST['username']) && isset($_POST['password'])) {
         $user = $_POST['username']; //TODO: evtl escapen über php klasse dbEscapeStrings
         $pwd = $_POST['password'];
+
         setcookie("username",$user,time()+60*60*12); //Cookies laufen in 12h ab
         setcookie("password",$pwd,time()+60*60*12); //Cookies laufen in 12h ab
     } else {
-        include_once 'database/dbNoAuthorization.php';
+        include_once 'db/dbNoAuthorization.php';
     }
 
-    include_once 'database/dbNewConnection.php'; //Connection can be only established when user and pwd are defined!
+    //Variables User and Password are used in following file
+    include_once 'db/dbNewConnection.php'; //Connection can be only established when user and pwd are defined!
 
     // LOAD PAGE -------------------------------------------------------------------------------------------------
 

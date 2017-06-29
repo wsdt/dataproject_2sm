@@ -78,7 +78,16 @@ CREATE TABLE Eventplanning (
 	
 
    
-
+/* EMPLOYEES: Registration is only possible by the IT-department (nevertheless we implemented a registration field with
+db-connection in our web-project. In our example all following accounts are admins. */
+CREATE TABLE Employees (
+	Username VARCHAR(50),
+    Passwort VARCHAR(255), /* HASH Wert, braucht viel Platz */
+    isAdmin BOOLEAN,
+    PRIMARY KEY (Username)
+    /*FOREIGN KEY DERWEIL LEER GELASSEN*/
+)
+/*
 CREATE USER 'Johnny'@'localhost' IDENTIFIED BY 'ibimsadatenbank';
 GRANT ALL PRIVILEGES ON * . * TO 'Johnny'@'localhost';
 CREATE USER 'Kevin'@'localhost' IDENTIFIED BY '123';
@@ -88,4 +97,4 @@ GRANT ALL PRIVILEGES ON * . * TO 'Tino'@'localhost';
 CREATE USER 'Michael'@'localhost' IDENTIFIED BY 'grussundsonne';
 GRANT ALL PRIVILEGES ON * . * TO 'Michael'@'localhost';
 
-FLUSH PRIVILEGES; 
+FLUSH PRIVILEGES; */
