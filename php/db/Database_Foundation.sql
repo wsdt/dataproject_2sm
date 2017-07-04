@@ -1,5 +1,5 @@
 CREATE DATABASE MARKETINGCOMPANY;
-
+/*DROP DATABASE MARKETINGCOMPANY;*/
 USE MARKETINGCOMPANY;
 
 
@@ -39,12 +39,10 @@ CREATE TABLE Priority (
 
 CREATE TABLE Employees (
 	Username VARCHAR (50)
-    ,Passwort VARCHAR(255) 					/* HASH Wert, braucht viel Platz */
-    ,isAdmin BOOLEAN not null default 0	     /* Default 0 = false, if true user is admin! */
-    ,campaignteamID INT
+    ,Passwort VARCHAR(255) 					
+    ,isAdmin BOOLEAN not null default 0	     
     ,UNIQUE (Username) 
     ,PRIMARY KEY (Username)
-    ,FOREIGN KEY (campaignteamID) REFERENCES Campaignteam (campaignteamID)
     );
 
 CREATE TABLE Profil  (

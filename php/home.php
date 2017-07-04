@@ -35,6 +35,5 @@ echo "<h1 class='text-center'>WElCOME TO BLUE SURFACE SEEKER EMPLOYEE LOGIN!</h1
 
 
 ?>
-<a href="Profile.php">Hier gehts zum Bernutzerprofil</a>
 </body>
 </html>
