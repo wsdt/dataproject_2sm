@@ -18,17 +18,17 @@ function createNav() {
 }
 
 function createProfilForm() {
-    echo "<table><form method='post' name='profil_edit_form' action='".$_SERVER['PHP_SELF']."'>"; //No onsubmit, because we will check input with php only
-    echo "<tr><td>Username: </td><td><input type='text' name='username' placeholder='".$_COOKIE['Username']."' value='".$_COOKIE['Username']."' /></td>";
-    echo "<tr><td>Old password: </td><td><input type='password' name='passwort_old' placeholder='Type in old pwd to change it' /></td>";
-    echo "<tr><td>New password: </td><td><input type='password' name='passwort_new' placeholder='Your future password' /></td>";
-    echo "<tr><td>New password (repeat): </td><td><input type='password' name='passwort_new_repeat' placeholder='Repeat new password' /></td>";
+    echo "<table><form method='post' name='profil_edit_form' action='".$_SERVER['PHP_SELF']."' onsubmit='evtlAskForPermissionToDeleteData()'>";
+    echo "<tr><td>Username: </td><td><input type='text' id='username' name='username' placeholder='".$_COOKIE['Username']."' /></td>";
+    echo "<tr><td>Old password: </td><td><input id='passwort_old' type='password' name='passwort_old' placeholder='Type in old pwd to change it' /></td>";
+    echo "<tr><td>New password: </td><td><input id='passwort_new' type='password' name='passwort_new' placeholder='Your future password' /></td>";
+    echo "<tr><td>New password (repeat): </td><td><input id='passwort_new_repeat' type='password' name='passwort_new_repeat' placeholder='Repeat new password' /></td>";
     echo "<tr><td>&nbsp;</td><td>&nbsp;</td></tr>";
-    echo "<tr><td>Vorname: </td><td><input type='text' name='vname' placeholder='Max'/></td>";
-    echo "<tr><td>Nachname: </td><td><input type='text' name='nname' placeholder='Mustermann'/></td>";
-    echo "<tr><td>Kurzbeschreibung: </td><td><textarea name='kurzbeschreibung' placeholder='Interesting facts about you. :)'></textarea></td>";
+    echo "<tr><td>Vorname: </td><td><input id='vname' type='text' name='vname' placeholder='Max'/></td>";
+    echo "<tr><td>Nachname: </td><td><input id='nname' type='text' name='nname' placeholder='Mustermann'/></td>";
+    echo "<tr><td>Kurzbeschreibung: </td><td><textarea id='kurzbeschreibung' name='kurzbeschreibung' placeholder='Interesting facts about you. :)'></textarea></td>";
     echo "<tr><td>Geschlecht: </td><td><input type='radio' name='persongender' value='w'> Weiblich\n<input type='radio' name='persongender' value='m'> Männlich</td>";
-    echo "<tr><td><input type='reset' value='Formular leeren'/></td><td><input type='submit' value='Profil aktualisieren'></td></tr>";
+    echo "<tr><td><input type='reset' value='Formular leeren'/></td><td><input type='submit' name='profil_edited' value='Profil aktualisieren'></td></tr>";
     echo "</form></table>";
 }
 
