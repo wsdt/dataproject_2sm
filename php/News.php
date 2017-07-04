@@ -8,7 +8,7 @@
 </head>
 <title>News</title>
 <body>
-    <!-- Navigation einfügen und verlinken -->
+<!-- Navigation einfügen und verlinken -->
 <header>
     <div class="nav">
         <ul>
@@ -21,21 +21,30 @@
     </div>
 </header>
 <section>
-
-
-    <!-- Impressumtext einfügen, Hier wurde mit Absicht eine normale Überschrift gewählt! -->
+    <!-- Überschrift einbinden, hit the floor ist das SStylesheet für die Schriftart-->
     <div class="text-center">
         <br>
         <br>
-        <br>
-        <h1>Impressum</h1>
-        <p><strong>Betreiber:</strong><br />Gruß Sonne<br />Far Away 1000<br />6330 Kufstein</p>
-        <br>
-        <p><strong>Kontakt:</strong><br />Telefon: 089/1234567-8<br />Telefax: 089/1234567-9<br />E-Mail: Gruß@sonne.at<br />Website: <a href="https://theflatearthsociety.org/home">Flatearther</a></p>
-        <br>
-        <p><strong>Bei redaktionellen Inhalten:</strong></p>
-        <p>Verantwortlich nach § 55 Abs.2 RStV<br />Moritz Schreiberling<br />Musterstraße 2<br />80999 München</p>
+        <div><h1>Breaking News</h1></div>
+        <!-- Text und zweite Überschrift-->
+        <h2>DATA ENGINEEER GESUCHT!</h2>
+    <p>WIR suchen dich! Bewirb dich Jetzt bei BlUE SURFACE SEEKER!
+            <br>
+            Top Aufstiegchancen und ein gutes Gehalt?
+            <br>
+            Falls du Intressiert bist, Bewirb dich unter den Kontaktdaten im <a href="impressum.php">Impressum! </a>
+    </p>
     </div>
+</section>
+<!-- Bild einfügen -->
+<!-- Falls der Mauszeiger auf das Bild zeigt, Wahrer Ultra anzeigen-->
+<div class="text-center">
+    <img title="BLUE SURFACE SEEKER" alt="BLUE SURFACE SEEKER" src="../images/Logo.jpg" width="600" height="740"/>
+</div>
+</body>
+</html>
+
+
 </section>
 
 
