@@ -37,7 +37,7 @@ if (empty($fetched_array)) {
     echo "<p>Sie haben zu Ihrem erstellten Profil noch keine genaueren Angaben gemacht. Möchten Sie dies hier nachholen?</p>";
 
     //TODO: Hier Insert Formular anzeigen für Dateneingabe (Formular soll über PHP Funktion generiert werden, da UPDATE bei Profil EDIT wenn nicht leer
-
+    createProfilForm();
 
 } else {
     echo "<table>";
@@ -55,6 +55,10 @@ if (empty($fetched_array)) {
         break; //Es soll nur ein Profil ausgegeben werden (da Username = Primär/Fremdschlüssel dürfte ohnehin nur ein Profil zurückgegeben werden)
     }
     echo "</table>";
+
+    //TODO: Hier Update Formular anzeigen und mit Werten aus Datenbank schon vorbefüllen (außer Passwort)
+    createProfilForm();
+
 }
 
 ?>

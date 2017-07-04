@@ -17,6 +17,21 @@ function createNav() {
     </div>";
 }
 
+function createProfilForm() {
+    echo "<table><form method='post' name='profil_edit_form' action='".$_SERVER['PHP_SELF']."'>"; //No onsubmit, because we will check input with php only
+    echo "<tr><td>Username: </td><td><input type='text' name='username' placeholder='".$_COOKIE['Username']."' value='".$_COOKIE['Username']."' /></td>";
+    echo "<tr><td>Old password: </td><td><input type='password' name='passwort_old' placeholder='Type in old pwd to change it' /></td>";
+    echo "<tr><td>New password: </td><td><input type='password' name='passwort_new' placeholder='Your future password' /></td>";
+    echo "<tr><td>New password (repeat): </td><td><input type='password' name='passwort_new_repeat' placeholder='Repeat new password' /></td>";
+    echo "<tr><td>&nbsp;</td><td>&nbsp;</td></tr>";
+    echo "<tr><td>Vorname: </td><td><input type='text' name='vname' placeholder='Max'/></td>";
+    echo "<tr><td>Nachname: </td><td><input type='text' name='nname' placeholder='Mustermann'/></td>";
+    echo "<tr><td>Kurzbeschreibung: </td><td><textarea name='kurzbeschreibung' placeholder='Interesting facts about you. :)'></textarea></td>";
+    echo "<tr><td>Geschlecht: </td><td><input type='radio' name='persongender' value='w'> Weiblich\n<input type='radio' name='persongender' value='m'> Männlich</td>";
+    echo "<tr><td><input type='reset' value='Formular leeren'/></td><td><input type='submit' value='Profil aktualisieren'></td></tr>";
+    echo "</form></table>";
+}
+
 
 function createLogoutButton() {
     //This function creates a logout-button at that place where this function will be called.
@@ -29,7 +44,7 @@ function pageAuthentification($show_errorpage) { //recommended: true
     require_once 'Employee.php';
 
     $current_employee = new Employee();
-    if (empty($_POST)) {
+    if (!isset($_POST['Username']) && !isset($_POST['Passwort'])) {
         if (isset($_COOKIE['Username']) && isset($_COOKIE['Passwort'])) {
             $current_employee->setUsername($_COOKIE['Username']);
             $current_employee->setPasswordHash($_COOKIE['Passwort']); //Übergib Pwd als Hash, da in Cookie Hash gespeichert sein sollte.
