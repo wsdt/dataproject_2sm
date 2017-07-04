@@ -19,7 +19,18 @@
         </ul>
     </div>
 </header>
+<?php
+INCLUDE 'db/dbNewConnection.php';
 
+$sql = "SELECT nname
+              ,vname
+              ,kurzbeschreibung
+              ,persongender
+              FROM Profil";
+
+$result = mysqli_query($tunnel,$sql);
+echo $result;
+?>
 </body>
 
 </html>

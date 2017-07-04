@@ -165,11 +165,11 @@ class Employee
         $tunnel = $this->establishDBConnection();
         //$sql_hc = "DELETE FROM Highscore WHERE Username='".$this->getUsername()."';"; //Lösche auch Einträge von in Beziehung stehenden Tabellen
         $sql_us = "DELETE FROM Employees WHERE Username='" . $this->getUsername() . "';";
-        $result = mysqli_query($tunnel, $sql_hc);
+        //$result = mysqli_query($tunnel, $sql_hc);
         $result2 = mysqli_query($tunnel, $sql_us);
-        if (!$result || !$result2) {
-            echo "DB ERROR: User konnte in der Datenbank nicht gelöscht werden! [in DB_deleteUser()]";
-        }
+        //if (!$result || !$result2) {
+        //    echo "DB ERROR: User konnte in der Datenbank nicht gelöscht werden! [in DB_deleteUser()]";
+        //}
 
         $this->closeDBConnection($tunnel);
     }

@@ -47,11 +47,11 @@ CREATE TABLE Employees (
     ,FOREIGN KEY (campaignteamID) REFERENCES Campaignteam (campaignteamID)
     );
 
-
 CREATE TABLE Profil  (
 	 Username VARCHAR (50)
     ,nname VARCHAR (50)
     ,vname VARCHAR (50)
+    ,kurzbeschreibung VARCHAR (500)
     ,personsgender CHAR (1) NOT NULL
     ,FOREIGN KEY (Username) REFERENCES Employees (Username)
     ,PRIMARY KEY (Username)
@@ -87,7 +87,8 @@ CREATE TABLE Eventplanning (
     ,PRIMARY KEY (eventplanningID)
     );
 	
-
+INSERT INTO Profil (username, nname ,vname, kurzbeschreibung, personsgender)
+VALUES ('Gollum','Johnny','Rieder','IstderBesteMann','M');
 /* EMPLOYEES: Registration is only possible by the IT-department (nevertheless we implemented a registration field with
 db-connection in our web-project. In our example all following accounts are admins. */
 
