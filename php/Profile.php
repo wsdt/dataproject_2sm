@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../css/navBar.css">
     <link rel="stylesheet" href="../css/general.css">
     <script type="text/javascript" src="../js/login_logout.js"></script>
+    <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
 
     <script type="text/javascript">
         //Hier inline, da eig nur hier gebraucht
@@ -13,9 +14,9 @@
         function evtlAskForPermissionToDeleteData() {
             //If alle Felder leer mache prompt alert und frage mit JA Eingabe ob Profildaten (exkl. Passwort und Username) aus Datenbank zu löschen. Ist also nicht gleich Account löschen
             var username = document.getElementById('username').value;
-            var password_old = document.getElementById('password_old').value;
-            var password_new = document.getElementById('password_new').value;
-            var password_new_repeat = document.getElementById('password_new_repeat').value;
+            var password_old = document.getElementById('passwort_old').value;
+            var password_new = document.getElementById('passwort_new').value;
+            var password_new_repeat = document.getElementById('passwort_new_repeat').value;
             var vname = document.getElementById('vname').value;
             var nname = document.getElementById('nname').value;
             var kurzbeschreibung = document.getElementById('kurzbeschreibung').value;
@@ -26,8 +27,21 @@
             kurzbeschreibung === "" && geschlecht[0].checked === false && geschlecht[1].checked === false) {
                 if(window.confirm("You have not entered anything! \n Do you want to delete your profile data? \n" +
                     "This does not delete your account!")) {
-                    //TODO: DELETE Profile Data
+                    var deleteProfileData = true;
+
+                    var request = $.ajax({
+                        //TODO: Datei wird scheinbar nicht gefunden?
+                        url: "db/deleteProfildata.php",
+                        type: "post",
+                        data: {
+                            deleteProfileData: true
+                        },
+                        success: function (receivedData) {
+                            //console.log(receivedData.prototype.toString());
+                        }
+                    });
                 } //else do nothing.
+            return false;
             }
         }
 
@@ -74,7 +88,7 @@ if (!empty($_POST) && isset($_POST['profil_edited'])) {
 }
 
 
-if ($profildata_available) {
+if (!$profildata_available) {
     echo "<h2>Herzlich Willkommen ".$_COOKIE['Username']."! </h2>";
     echo "<p>Sie haben zu Ihrem erstellten Profil noch keine genaueren Angaben gemacht. Möchten Sie dies hier nachholen?</p>";
 } else {
@@ -92,7 +106,7 @@ if ($profildata_available) {
         echo "<td>" . $row['persongender'] . "</td></tr>";
         break; //Es soll nur ein Profil ausgegeben werden (da Username = Primär/Fremdschlüssel dürfte ohnehin nur ein Profil zurückgegeben werden)
     }
-    echo "</table>";
+    echo "</table><br /><br />";
 
 }
 
