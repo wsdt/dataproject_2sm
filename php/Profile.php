@@ -7,6 +7,12 @@
 </head>
 
 <body>
+<?php
+require_once 'functions.php';
+pageAuthentification(true); //Login-Page is the only exception where false should be placed!
+
+?>
+
 <!-- Navigation einbinden! -->
 <header>
     <div class="nav">

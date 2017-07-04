@@ -82,8 +82,8 @@
     </style>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-    <script type="text/javascript" src="../js/login_logout.js"></script>
-    <link href="../css/general.css"/>
+    <script type="text/javascript" src="js/login_logout.js"></script>
+    <link href="css/general.css"/>
 
 </head>
 
@@ -109,7 +109,7 @@ var_dump($_COOKIE);*/
 
 <div class="login">
     <h1>Employee-Login</h1>
-    <form method="post" action="home.php" onsubmit="return validateLoginRegisterForm()" novalidate>
+    <form method="post" action="php/home.php" onsubmit="return validateLoginRegisterForm()" novalidate>
         <input type="text" name="Username" id="username" placeholder="Username" required="required" />
         <input type="password" name="Passwort" id="password" placeholder="Password" required="required" />
         <input type="password" style="display:none;" name="Passwort_repeat" id="password_repeat" placeholder="Repeat password" required="required"/>
