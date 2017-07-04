@@ -5,26 +5,21 @@
     <!-- Verlinken der Css Dateien -->
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="../css/navBar.css">
+    <link rel="stylesheet" href="../css/general.css">
+    <script type="text/javascript" src="../js/login_logout.js"></script>
 </head>
 <title>News</title>
 <body>
 <?php
 require_once 'functions.php';
 pageAuthentification(true); //Login-Page is the only exception where false should be placed!
-?>
 
-    <!-- Navigation einfügen und verlinken -->
-<header>
-    <div class="nav">
-        <ul>
-            <li class="home"><a href="home.php">Home</a></li>
-            <li class="profile"><a class="active" href="Profile.php">Profil</a></li>
-            <li class="news"><a href="news.php">News</a></li>
-            <li class="impressum"><a href="impressum.php">Impressum</a></li>
-            <li class="logout"><a href="logout.php">Logout</a></li>
-        </ul>
-    </div>
-</header>
+
+//Navigation einfügen und verlinken
+echo "<header>";
+    createNav();
+    echo "</header>";
+    ?>
 <section>
 
 

@@ -2,6 +2,12 @@
  * Created by kevin on 29.06.2017.
  */
 
+function logCurrentUserOut() {
+    document.cookie = 'Username=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = 'Passwort=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    window.location = "http://localhost/dataproject_2sm/"; //Leite zum Login weiter
+}
+
 function pruefeLoginRegisterAccurate() {
     var hiddenfield = document.getElementById('login_or_register').value;
     var label = document.getElementById('register_login_convert_label').innerHTML;

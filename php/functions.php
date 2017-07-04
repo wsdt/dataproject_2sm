@@ -5,6 +5,25 @@
  * Date: 29.06.2017
  * Time: 18:57
  */
+function createNav() {
+    echo "<div class=\"nav\">
+        <ul>
+            <li class=\"home\"><a href=\"home.php\">Home</a></li>
+            <li class=\"profile\"><a class=\"active\" href=\"Profile.php\">Profil</a></li>
+            <li class=\"news\"><a href=\"news.php\">News</a></li>
+            <li class=\"impressum\"><a href=\"impressum.php\">Impressum</a></li>
+            <li class=\"logout\"><a href='#' onclick='logCurrentUserOut()' \">Logout</a></li>
+        </ul>
+    </div>";
+}
+
+
+function createLogoutButton() {
+    //This function creates a logout-button at that place where this function will be called.
+    //IMPORTANT: To show the button accurately, the page which uses this function must embed bootstrap (css) AND login_logout.js
+    echo "<button type='button' class='btn btn-danger' onclick='logCurrentUserOut()'>Logout</button>";
+}
+
 
 function pageAuthentification($show_errorpage) { //recommended: true
     require_once 'Employee.php';
