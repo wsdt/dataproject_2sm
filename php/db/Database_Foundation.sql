@@ -28,7 +28,6 @@ CREATE TABLE Venue (
     , PRIMARY KEY (venueID)
     );
     
-    
 CREATE TABLE Priority (
 	priorityID INT AUTO_INCREMENT
     , prioritycolour VARCHAR (50)
@@ -36,16 +35,26 @@ CREATE TABLE Priority (
     , PRIMARY KEY (priorityID)
 	);
 
+CREATE TABLE Employees (
+	Username VARCHAR (50)
+    ,Passwort VARCHAR(255) 					/* HASH Wert, braucht viel Platz */
+    ,isAdmin BOOLEAN not null default 0	     /* Default 0 = false, if true user is admin! */
+    ,campaignteamID INT
+    ,UNIQUE (Username) 
+    ,PRIMARY KEY (Username)
+    ,FOREIGN KEY (campaignteamID) REFERENCES Campaignteam (campaignteamID)
+    );
 
-CREATE TABLE Persons (
-	 personsID INT AUTO_INCREMENT 
+CREATE TABLE Profil  (
+	 Username VARCHAR (50)
     ,nname VARCHAR (50)
     ,vname VARCHAR (50)
     ,personsgender CHAR (1) NOT NULL
-    ,campaignteamID INT
-    ,FOREIGN KEY (campaignteamID) REFERENCES Campaignteam (campaignteamID)
-    ,PRIMARY KEY (personsID)
+    ,FOREIGN KEY (Username) REFERENCES Employees (Username)
+    ,PRIMARY KEY (Username)
     );
+    
+
 
 
 CREATE TABLE Campaign (
@@ -80,13 +89,8 @@ CREATE TABLE Eventplanning (
    
 /* EMPLOYEES: Registration is only possible by the IT-department (nevertheless we implemented a registration field with
 db-connection in our web-project. In our example all following accounts are admins. */
-CREATE TABLE Employees (
-	Username VARCHAR(50),
-    Passwort VARCHAR(255), /* HASH Wert, braucht viel Platz */
-    isAdmin BOOLEAN not null default 0, /* Default 0 = false, if true user is admin! */
-    PRIMARY KEY (Username)
+
     /*TODO: FOREIGN KEY DERWEIL LEER GELASSEN*/
-)
 /*
 CREATE USER 'Johnny'@'localhost' IDENTIFIED BY 'ibimsadatenbank';
 GRANT ALL PRIVILEGES ON * . * TO 'Johnny'@'localhost';
