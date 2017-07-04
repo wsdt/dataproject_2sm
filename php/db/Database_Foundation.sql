@@ -28,12 +28,14 @@ CREATE TABLE Venue (
     , PRIMARY KEY (venueID)
     );
     
+    
 CREATE TABLE Priority (
 	priorityID INT AUTO_INCREMENT
     , prioritycolour VARCHAR (50)
     , hexcode VARCHAR (50)
     , PRIMARY KEY (priorityID)
 	);
+
 
 CREATE TABLE Employees (
 	Username VARCHAR (50)
@@ -45,6 +47,7 @@ CREATE TABLE Employees (
     ,FOREIGN KEY (campaignteamID) REFERENCES Campaignteam (campaignteamID)
     );
 
+
 CREATE TABLE Profil  (
 	 Username VARCHAR (50)
     ,nname VARCHAR (50)
@@ -54,8 +57,6 @@ CREATE TABLE Profil  (
     ,PRIMARY KEY (Username)
     );
     
-
-
 
 CREATE TABLE Campaign (
 	campaignID INT AUTO_INCREMENT
@@ -70,6 +71,7 @@ CREATE TABLE Campaign (
     ,FOREIGN KEY (priorityID) REFERENCES Priority (priorityID)
 	,PRIMARY KEY (campaignID)
 	);
+    
     
 CREATE TABLE Eventplanning (
 	eventplanningID INT AUTO_INCREMENT
@@ -86,7 +88,6 @@ CREATE TABLE Eventplanning (
     );
 	
 
-   
 /* EMPLOYEES: Registration is only possible by the IT-department (nevertheless we implemented a registration field with
 db-connection in our web-project. In our example all following accounts are admins. */
 

@@ -16,10 +16,12 @@ function pageAuthentification($show_errorpage) { //recommended: true
             $current_employee->setPasswordHash($_COOKIE['Passwort']); //Übergib Pwd als Hash, da in Cookie Hash gespeichert sein sollte.
             //Standard = kein Admin
             $login_success = $current_employee->authentificateUser($current_employee->getPasswordHash(),true,true);
-            if (!$login_success) {include_once 'db/dbNoAuthorization.php';}
+            if (!$login_success) {
+                include_once 'db/dbNoAuthorization.php';}
             echo "found cookies and used them";
         } else {
-            if ($show_errorpage) {include_once 'db/dbNoAuthorization.php';}
+            if ($show_errorpage) {
+                include_once 'db/dbNoAuthorization.php';}
         }
     } else if (isset($_POST['Username']) && isset($_POST['Passwort'])) {
         $current_employee->setUsername($_POST['Username']);
@@ -48,9 +50,11 @@ function pageAuthentification($show_errorpage) { //recommended: true
                 }
             }
         } else {
-            if ($show_errorpage) {include_once 'db/dbNoAuthorization.php';}
+            if ($show_errorpage) {
+                include_once 'db/dbNoAuthorization.php';}
         }
     } else {
-        if ($show_errorpage) {include_once 'db/dbNoAuthorization.php';}
+        if ($show_errorpage) {
+            include_once 'db/dbNoAuthorization.php';}
     }
 }
