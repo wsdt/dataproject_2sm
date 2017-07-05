@@ -28,6 +28,7 @@ function createProfilForm() {
     echo "<tr><td>Nachname: </td><td><input id='nname' type='text' name='nname' placeholder='Mustermann'/></td>";
     echo "<tr><td>Kurzbeschreibung: </td><td><textarea id='kurzbeschreibung' name='kurzbeschreibung' placeholder='Interesting facts about you. :)'></textarea></td>";
     echo "<tr><td>Geschlecht: </td><td><input type='radio' name='persongender' value='w'> Weiblich\n<input type='radio' name='persongender' value='m'> Männlich</td>";
+    echo "<tr><td colspan='2'><input type='checkbox' name='deleteProfilData' /> Lösche Profildaten (Betrifft nicht deinen Account)</td></tr>";
     echo "<tr><td><input type='reset' value='Formular leeren'/></td><td><input type='submit' name='profil_edited' value='Profil aktualisieren'></td></tr>";
     echo "</form></table>";
 }
@@ -37,6 +38,20 @@ function createLogoutButton() {
     //This function creates a logout-button at that place where this function will be called.
     //IMPORTANT: To show the button accurately, the page which uses this function must embed bootstrap (css) AND login_logout.js
     echo "<button type='button' class='btn btn-danger' onclick='logCurrentUserOut()'>Logout</button>";
+}
+
+
+function deleteProfildata() {
+    INCLUDE 'db/dbNewConnection.php';
+
+    if (isset($_COOKIE['Username'])) {
+        $sql = "DELETE FROM Profil WHERE Username='" . $_COOKIE['Username'] . "';"; //$_Post Username macht keinen Sinn, da ja eig nichts eingegeben (siehe Profile.php)
+
+        $result = mysqli_query($tunnel, $sql);
+        return $result;
+    } else {
+        echo "ERROR: Cookie 'Username' not set!";
+    }
 }
 
 
@@ -52,7 +67,7 @@ function pageAuthentification($show_errorpage) { //recommended: true
             $login_success = $current_employee->authentificateUser($current_employee->getPasswordHash(),true,true);
             if (!$login_success) {
                 include_once 'db/dbNoAuthorization.php';}
-            echo "found cookies and used them";
+            //echo "found cookies and used them";
         } else {
             if ($show_errorpage) {
                 include_once 'db/dbNoAuthorization.php';}
@@ -67,7 +82,7 @@ function pageAuthentification($show_errorpage) { //recommended: true
             $tmp_user = $current_employee->loadUser_from_DB($current_employee->getUsername()); //to get the same hash for cookie saving
 
             if($login_success) {
-                echo "set cookie";
+                //echo "set cookie";
                 setcookie("Username", $current_employee->getUsername(), time() + 60 * 60 * 12); //Cookies laufen in 12h ab
                 setcookie("Passwort", $tmp_user->getPasswordHash(), time() + 60 * 60 * 12); //Cookies laufen in 12h ab
             }
@@ -76,7 +91,7 @@ function pageAuthentification($show_errorpage) { //recommended: true
             $isOk = $current_employee->setPassword($_POST['Passwort'], $_POST['Passwort_repeat']);
             if ($isOk) {
                 if ($current_employee->DB_addUser()) {
-                    echo "registered user and set cookie";
+                    //echo "registered user and set cookie";
                     setcookie("Username", $current_employee->getUsername(), time() + 60 * 60 * 12); //Cookies laufen in 12h ab
                     setcookie("Passwort", $current_employee->getPasswordHash(), time() + 60 * 60 * 12); //Cookies laufen in 12h ab
                 } else {

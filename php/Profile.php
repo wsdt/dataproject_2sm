@@ -8,7 +8,7 @@
     <script type="text/javascript" src="../js/login_logout.js"></script>
     <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
 
-    <script type="text/javascript">
+    <!--<script type="text/javascript">
         //Hier inline, da eig nur hier gebraucht
 
         function evtlAskForPermissionToDeleteData() {
@@ -45,7 +45,7 @@
             }
         }
 
-    </script>
+    </script>-->
 
 </head>
 
@@ -79,10 +79,14 @@ if (!empty($_POST) && isset($_POST['profil_edited'])) {
     //TODO: Insert oder Update Statement wenn Profil aktualisiert oder erstmals ergänzt wird.
     //TODO: IMPORTANT: Es ist ok wenn bei manchen Felder nichts angegeben wird. Dann wird einfach null oder nichts in die Datenbank gespeichert,
     //TODO: ABER: bei UPDATE besonders darauf zu achten, dass NULL-Werte (also leere Formularfelder) NICHT die bestehenden Werte in der Datenbank überschreiben
-    if ($profildata_available) {
-        //TODO: Hier Tabelle updaten mit untenstehenden Formulardaten
+    if (!isset($_POST['deleteProfilData'])) { //Wenn Profildaten nicht gelöscht werden sollen
+        if ($profildata_available) {
+            //TODO: Hier Tabelle updaten mit untenstehenden Formulardaten
+        } else {
+            //TODO: Hier Insert in Tabelle mit untenstehenden Formulardaten
+        }
     } else {
-        //TODO: Hier Insert in Tabelle mit untenstehenden Formulardaten
+        deleteProfildata(); //Lösche Profildaten
     }
 
 }
