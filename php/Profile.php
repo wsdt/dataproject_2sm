@@ -80,26 +80,35 @@ if (!empty($_POST) && isset($_POST['profil_edited'])) {
     //TODO: IMPORTANT: Es ist ok wenn bei manchen Felder nichts angegeben wird. Dann wird einfach null oder nichts in die Datenbank gespeichert,
     //TODO: ABER: bei UPDATE besonders darauf zu achten, dass NULL-Werte (also leere Formularfelder) NICHT die bestehenden Werte in der Datenbank überschreiben
     if (!isset($_POST['deleteProfilData'])) { //Wenn Profildaten nicht gelöscht werden sollen
+        //Undefinierte Indizes to empty string, so muss beim erstmaligen Eintragen nicht zwingend ganzes Profil ausgefüllt werden
+        if (!isset($_POST['nname'])) { $nname = "";} else { $nname = $_POST['nname'];}
+        if (!isset($_POST['vname'])) { $vname = "";} else { $vname = $_POST['vname'];}
+        if (!isset($_POST['kurzbeschreibung'])) { $kurzbeschreibung = "";} else { $kurzbeschreibung = $_POST['kurzbeschreibung'];}
+        if (!isset($_POST['persongender'])) { $persongender = "m";} else { $persongender = $_POST['persongender'];}//obwohl standardmaessig gesetzt, hier nochmal vorsichtshalber pruefen
+
         if ($profildata_available) {
             //TODO: Hier Tabelle updaten mit untenstehenden Formulardaten
+            //require 'db/dbNewConnection.php';
+
+            $sql = "UPDATE Profil
+                    SET username='".escapeString($_COOKIE['Username'])."', nname='".escapeString($nname)."', vname='".
+                    escapeString($vname)."', kurzbeschreibung='".escapeString($kurzbeschreibung)."', persongender='".escapeString($persongender)."'
+                    WHERE username='".escapeString($_COOKIE['Username'])."';";
+
+            if(!mysqli_query($tunnel,$sql)) {
+                echo "ERROR: Profildaten konnten nicht gespeichert werden! (update)";
+            }
+            //mysqli_close($tunnel);
         } else {
-            //TODO: Hier Insert in Tabelle mit untenstehenden Formulardaten
-            require 'db/dbNewConnection.php';
-
-            //Undefinierte Indizes to empty string, so muss beim erstmaligen Eintragen nicht zwingend ganzes Profil ausgefüllt werden
-            if (!isset($_POST['nname'])) { $nname = "";} else { $nname = $_POST['nname'];}
-            if (!isset($_POST['vname'])) { $vname = "";} else { $vname = $_POST['vname'];}
-            if (!isset($_POST['kurzbeschreibung'])) { $kurzbeschreibung = "";} else { $kurzbeschreibung = $_POST['kurzbeschreibung'];}
-            if (!isset($_POST['persongender'])) { $persongender = "m";} else { $persongender = $_POST['persongender'];}//obwohl standardmaessig gesetzt, hier nochmal vorsichtshalber pruefen
-
+            //require 'db/dbNewConnection.php';
 
             $sql = "INSERT INTO Profil (username, nname ,vname, kurzbeschreibung, persongender)
                       VALUES ('".escapeString($_COOKIE['Username'])."','".escapeString($nname)."','".
                 escapeString($vname)."','".escapeString($kurzbeschreibung)."','".escapeString($persongender)."');";
                 if(!mysqli_query($tunnel,$sql)) {
-                    echo "ERROR: Profildaten konnten nicht gespeichert werden!";
+                    echo "ERROR: Profildaten konnten nicht gespeichert werden! (insert)";
                 }
-
+            //mysqli_close($tunnel);
         }
 
     } else {
