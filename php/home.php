@@ -25,9 +25,9 @@ echo "<h1 class='text-center'>WElCOME TO BLUE SURFACE SEEKER EMPLOYEE LOGIN!</h1
 //Creates logout button anywhere you want it
 createLogoutButton();
 
+// MARKETING CAMPAGINS ----------------------------------------------------------------------------------------------
 
-// LOAD PAGE END ----------------------------------------------------------------------------------------------
-
+//TODO: Place here marketing campaign tables etc. 
 
 ?>
 </body>

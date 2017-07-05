@@ -139,6 +139,29 @@ class Employee
         }
     }
 
+    function DB_updateUser()
+    {
+        if (!($this->isUsernameAvailable())) {
+            $tunnel = $this->establishDBConnection();
+            $sql = "UPDATE Employees
+                    SET username='".$this->getUsername()."', Passwort='".$this->getPasswordHash()."'
+                    WHERE username='".$this->getUsername()."';";
+            $result = mysqli_query($tunnel, $sql);
+
+            $this->closeDBConnection($tunnel);
+
+            if (!$result) {
+                echo "DB ERROR: User konnte nicht in die Datenbank übertragen werden! [in DB_updateUser()]";
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            echo "DB ERROR: Username NICHT vorhanden! Bitte wählen Sie einen anderen!";
+            return false;
+        }
+    }
+
     function DB_addUser()
     {
         if ($this->isUsernameAvailable()) {

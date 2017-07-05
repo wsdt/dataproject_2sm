@@ -115,7 +115,35 @@ if (!empty($_POST) && isset($_POST['profil_edited'])) {
         deleteProfildata(); //Lösche Profildaten
     }
 
-    //TODO: Noch extra hier für Passwort Routine schreiben
+    //Password Changer; !empty möglich, da 0 z.B. als String übergeben, so kein Problem hier
+    if (!empty($_POST['passwort_old']) && !empty($_POST['passwort_new']) && !empty($_POST['passwort_new_repeat'])) {
+        $pwd_old = $_POST['passwort_old'];
+        $pwd_new = $_POST['passwort_new'];
+        $pwd_new_repeat = $_POST['passwort_new_repeat'];
+
+
+        $tmp_user = new Employee();
+        $tmp_user = $tmp_user->loadUser_from_DB($_COOKIE['Username']);
+
+        if($tmp_user->isPasswordValid($pwd_old)) {
+            if ($pwd_new !== $pwd_new_repeat || strlen($pwd_new) < 4) {
+                echo "ERROR: Password could not be changed! Min. 4 characters and both new password must be equal.";
+            } else {
+                if(!($tmp_user->setPassword($pwd_new,$pwd_new_repeat))) {
+                    echo "ERROR: Surprisingly an error, your new password is not ok!";
+                }
+                $tmp_user->DB_updateUser();
+                //Renew cookies
+                setcookie("Username", $tmp_user->getUsername(), time() + 60 * 60 * 12); //Cookies laufen in 12h ab
+                setcookie("Passwort", $tmp_user->getPasswordHash(), time() + 60 * 60 * 12); //Cookies laufen in 12h ab
+            }
+        } else {
+            echo "ERROR: Old Password is wrong!";
+        }
+
+
+
+    }
 }
 
 
