@@ -17,17 +17,45 @@ function createNav() {
     </div>";
 }
 
-function createProfilForm() {
+function escapeString($string) {
+    require 'db/dbNewConnection.php';
+    $escapedstring = mysqli_real_escape_string($tunnel,$string);
+    mysqli_close($tunnel);
+    return $escapedstring;
+}
+
+function createProfilForm($nname, $vname, $kurzbeschreibung, $persongender) {
+    //$username_value = "";
+    $nname_value = "";
+    $vname_value = "";
+    $kurzbeschreibung_value = "";
+    $persongender_value = "";
+    if ($nname !== false && $vname !== false && $kurzbeschreibung !== false && $persongender !== false) {
+        //$username_value = $username;
+        $nname_value = $nname;
+        $vname_value = $vname;
+        $kurzbeschreibung_value = $kurzbeschreibung;
+        $persongender_value = $persongender;
+    }
+
     echo "<table><form method='post' name='profil_edit_form' action='".$_SERVER['PHP_SELF']."' onsubmit='return evtlAskForPermissionToDeleteData()'>";
-    echo "<tr><td>Username: </td><td><input type='text' id='username' name='username' placeholder='".$_COOKIE['Username']."' /></td>";
+    echo "<tr><td>Username: </td><td><input type='text' id='username' disabled name='username' value='".$_COOKIE['Username']."' placeholder='".$_COOKIE['Username']."' /></td>";
     echo "<tr><td>Old password: </td><td><input id='passwort_old' type='password' name='passwort_old' placeholder='Type in old pwd to change it' /></td>";
     echo "<tr><td>New password: </td><td><input id='passwort_new' type='password' name='passwort_new' placeholder='Your future password' /></td>";
     echo "<tr><td>New password (repeat): </td><td><input id='passwort_new_repeat' type='password' name='passwort_new_repeat' placeholder='Repeat new password' /></td>";
     echo "<tr><td>&nbsp;</td><td>&nbsp;</td></tr>";
-    echo "<tr><td>Vorname: </td><td><input id='vname' type='text' name='vname' placeholder='Max'/></td>";
-    echo "<tr><td>Nachname: </td><td><input id='nname' type='text' name='nname' placeholder='Mustermann'/></td>";
-    echo "<tr><td>Kurzbeschreibung: </td><td><textarea id='kurzbeschreibung' name='kurzbeschreibung' placeholder='Interesting facts about you. :)'></textarea></td>";
-    echo "<tr><td>Geschlecht: </td><td><input type='radio' name='persongender' value='w'> Weiblich\n<input type='radio' name='persongender' value='m'> Männlich</td>";
+    echo "<tr><td>Vorname: </td><td><input id='vname' type='text' name='vname' placeholder='Max' value='".$vname_value."'/></td>";
+    echo "<tr><td>Nachname: </td><td><input id='nname' type='text' name='nname' placeholder='Mustermann' value='".$nname_value."'/></td>";
+    echo "<tr><td>Kurzbeschreibung: </td><td><textarea id='kurzbeschreibung' name='kurzbeschreibung' placeholder='Interesting facts about you. :)'>".$kurzbeschreibung_value."</textarea></td>";
+    echo "<tr><td>Geschlecht: </td><td>";
+    if (strtolower($persongender_value) == "m") {
+        echo "<input type='radio' name='persongender' value='w'> Weiblich\n<input type='radio' name='persongender' value='m' checked> Männlich";
+    } else /*if (strtolower($persongender_value) == "w")*/{ //So Datenbank-Konsistenz (Not null) sichergestellt
+        echo "<input type='radio' name='persongender' value='w' checked> Weiblich\n<input type='radio' name='persongender' value='m'> Männlich";
+    } /*else {
+        echo "<input type='radio' name='persongender' value='w'> Weiblich\n<input type='radio' name='persongender' value='m'> Männlich";
+    }*/
+    echo "</td>";
     echo "<tr><td colspan='2'><input type='checkbox' name='deleteProfilData' /> Lösche Profildaten (Betrifft nicht deinen Account)</td></tr>";
     echo "<tr><td><input type='reset' value='Formular leeren'/></td><td><input type='submit' name='profil_edited' value='Profil aktualisieren'></td></tr>";
     echo "</form></table>";

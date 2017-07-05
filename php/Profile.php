@@ -84,20 +84,40 @@ if (!empty($_POST) && isset($_POST['profil_edited'])) {
             //TODO: Hier Tabelle updaten mit untenstehenden Formulardaten
         } else {
             //TODO: Hier Insert in Tabelle mit untenstehenden Formulardaten
+            require 'db/dbNewConnection.php';
+
+            //Undefinierte Indizes to empty string, so muss beim erstmaligen Eintragen nicht zwingend ganzes Profil ausgefüllt werden
+            if (!isset($_POST['nname'])) { $nname = "";} else { $nname = $_POST['nname'];}
+            if (!isset($_POST['vname'])) { $vname = "";} else { $vname = $_POST['vname'];}
+            if (!isset($_POST['kurzbeschreibung'])) { $kurzbeschreibung = "";} else { $kurzbeschreibung = $_POST['kurzbeschreibung'];}
+            if (!isset($_POST['persongender'])) { $persongender = "m";} else { $persongender = $_POST['persongender'];}//obwohl standardmaessig gesetzt, hier nochmal vorsichtshalber pruefen
+
+
+            $sql = "INSERT INTO Profil (username, nname ,vname, kurzbeschreibung, persongender)
+                      VALUES ('".escapeString($_COOKIE['Username'])."','".escapeString($nname)."','".
+                escapeString($vname)."','".escapeString($kurzbeschreibung)."','".escapeString($persongender)."');";
+                if(!mysqli_query($tunnel,$sql)) {
+                    echo "ERROR: Profildaten konnten nicht gespeichert werden!";
+                }
+
         }
+
     } else {
         deleteProfildata(); //Lösche Profildaten
     }
 
+    //TODO: Noch extra hier für Passwort Routine schreiben
 }
 
 
 if (!$profildata_available) {
     echo "<h2>Herzlich Willkommen ".$_COOKIE['Username']."! </h2>";
     echo "<p>Sie haben zu Ihrem erstellten Profil noch keine genaueren Angaben gemacht. Möchten Sie dies hier nachholen?</p>";
+    createProfilForm(false,false,false,false);
 } else {
-    echo "<table>";
     while ($row = $fetched_array) {
+        //VON HIER BIS...
+        echo "<table>";
         echo "<tr><td>Username: </td>";
         echo "<td>" . $row['Username'] . "</td></tr>";
         echo "<tr><td>Nachname: </td>";
@@ -108,13 +128,15 @@ if (!$profildata_available) {
         echo "<td>" . $row['kurzbeschreibung'] . "</td></tr>";
         echo "<tr><td>Geschlecht: </td>";
         echo "<td>" . $row['persongender'] . "</td></tr>";
+        echo "</table><br /><br />";
+        //... BIS HIER, könnte man auskommentieren, wenn man die Profildaten nur über Formular ausgeben lassen möchte
+        createProfilForm($row['nname'], $row['vname'], $row['kurzbeschreibung'], $row['persongender']);
         break; //Es soll nur ein Profil ausgegeben werden (da Username = Primär/Fremdschlüssel dürfte ohnehin nur ein Profil zurückgegeben werden)
     }
-    echo "</table><br /><br />";
 
 }
 
-createProfilForm();
+
 
 mysqli_close($tunnel);
 ?>
