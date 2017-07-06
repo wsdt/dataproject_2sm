@@ -12,7 +12,7 @@
 <body>
 <?php
 require_once 'functions.php';
-pageAuthentification(true); //Login-Page is the only exception where false should be placed!
+//pageAuthentification(true); //Login-Page is the only exception where false should be placed!
 
 
 // Navigation einfügen und verlinken
@@ -36,9 +36,9 @@ echo "</header>";
         if (strlen($title) > 0 && strlen($textarea) > 0) {
             $news = "INSERT INTO News (title, newstext) VALUES ('" . $title . "','" . $textarea . "')";
             $pushnews = mysqli_query($tunnel, $news) or DIE ("Fehler: " . mysql_error());
-            echo 'Der Eintrag war erfolgreich';
+            echo "<div class='text-center'>Der Eintrag war erfolgreich</div>";
         } else {
-            echo 'Ihre Angaben sind fehlerhaft.';
+            echo "<div class='text-center'>Fehler: Ihre Angaben sind fehlerhaft</div>";
         }
         mysqli_close($tunnel);
     }
@@ -60,6 +60,13 @@ echo "</header>";
     {
         echo"<h1 class='text-center'>".$row1['title']."</h1>";
         echo"<p class='text-center'>".$row1['newstext']."</p><br><br>";
+        echo"";
+    }
+
+    if (isset($_POST['delete']))
+    {
+        $deletentry="DELETE * FROM News";
+        $isdeleted=mysqli_query($tunnel,$deletentry);
     }
 
     mysqli_close($tunnel);
