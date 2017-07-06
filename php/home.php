@@ -12,14 +12,7 @@
     <script type="text/javascript" src="../js/login_logout.js"></script>
 </head>
 <body>
-<form action="home.php" action="POST"/>
-Kampagnenname: <input type="text" name="Name"/><br/>
-Anfang: <input type="date" name="Anfang"/><br/>
-Ende: <input type="date" name="Ende"/><br/>
-kurzbeschreibung: <input type="text" name="kurzbeschreibung"/><br/>
-Priorität: <input type="color" name="Priorität"/><br/>
-<input type="submit" value="Absenden"/>
-</form>
+
 <?php
 require_once 'functions.php';
 pageAuthentification(true); //Login-Page is the only exception where false should be placed!
@@ -37,9 +30,33 @@ createLogoutButton();
 
 //TODO: Place here marketing campaign tables etc. 
 
-INCLUDE 'db/dbNewConnection.php';
 
 
+
+?>
+<form action="home.php" action="POST"/>
+Kampagnenname: <input type="text" name="Name"/><br/>
+Anfang: <input type="date" name="Anfang"/><br/>
+Ende: <input type="date" name="Ende"/><br/>
+kurzbeschreibung: <input type="text" name="kurzbeschreibung"/><br/>
+Priorität: <input type="color" name="Priorität"/><br/>
+<input type="submit" value="Absenden"/>
+</form>
+<?php
+include 'db/dbNewConnection.php';
+$kampagnenname = $_POST[‘Name’];
+$anfang = $_POST[‘Anfang’];
+$ende = $_POST[‘Ende’];
+$kurzbeschreibung = $_POST[‘kurzbeschreibung’];
+$priorität = $_POST[‘Priorität’];
+if(strlen($Name)>5){
+    $sql1 = 'INSERT INTO Priority (prioritycolour) VALUES ("'.$priorität.'")';
+    $sql2 =
+    echo 'Der Eintrag war erfolgreich';
+} else {
+    echo 'Ihre Angaben sind fehlerhaft.';
+}
+echo '<a href="adressbuch.html">Zurück</a>';
 ?>
 </body>
 </html>
