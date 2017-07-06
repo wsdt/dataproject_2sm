@@ -16,6 +16,17 @@ class Marketingcampaign
     private $teamname;
     private $priorityID;
 
+    function __destruct()
+    { //Delete Campaign in PHP-Code
+        $this->campaignID = null;
+        $this->campaignName = null;
+        $this->dateofbegin = null;
+        $this->dateofend = null;
+        $this->costumerID = null;
+        $this->teamname = null;
+        $this->priorityID = null;
+    }
+
     //GETTER/SETTER
     function setCampaignID($campaignID) {
         $this->campaignID = $campaignID;
@@ -64,7 +75,7 @@ class Marketingcampaign
     //END of Getter/Setter
     //DB functions
     function DB_executeSQLstatement($sql) {
-        $this->establishDBConnection();
+        $tunnel = $this->establishDBConnection();
         $result = mysqli_query($tunnel, $sql);
         $this->closeDBConnection($tunnel);
         return $result;
@@ -99,24 +110,39 @@ class Marketingcampaign
     }
 
     function DB_showAllCampaigns() {
-        $sql = ""; //TODO: Place here Sql statement
+        $sql = "SELECT campaignID, campaignName, teamname, dateofbegin, dateofend, companyname, hexcode FROM Campaign as a
+                INNER JOIN Priority as b
+                ON b.priorityID = a.priorityID
+                INNER JOIN Costumer as c
+                ON c.costumerID = a.costumerID;";
 
         $result = $this->DB_executeSQLstatement($sql); //Result = Objekt
 
-        if(empty($result)) {
-            echo "Keine Campagnen vorhanden.";
+        if($result->num_rows <= 0) {
+            echo "<h3>Keine Campagnen vorhanden.</h3>";
         } else {
             //Kampagnen vorhanden
             echo "<table class='campaigns'>";
             //Generiere Überschriften
-            echo "<tr><td>ID</td><td>Kampagnenname</td><td>Team(-name)</td>
-            <td>Start</td><td>Ende</td><td>Kunde</td><td>Priorität</td></tr>";
+            echo "<tr><th>ID</th><th>Kampagnenname</th><th>Team(-name)</th>
+            <th>Start</th><th>Ende</th><th>Kunde</th><th>Priorität</th></tr>";
+
+            $lastrow = 0;
+
             while ($row = mysqli_fetch_array($result)) {
                 echo "<tr><td>".$row['campaignID']."</td>
                 <td>".$row['campaignName']."</td><td>".$row['teamname']."</td>
                 <td>".$row['dateofbegin']."</td><td>".$row['dateofend']."</td>
-                <td>".$row['companyname']."</td><td style='background-color: " .$row['hexcode']. ";'>".$row['priorityid']."</td>";
+                <td>".$row['companyname']."</td><td style='background-color: " .$row['hexcode']. ";'>&nbsp;</td>";
+                $lastrow = $row['campaignID'];
             }
+            //TODO: if admin: start
+            echo "<tr><td><input type='text' name='campaignID' value='".($lastrow+1)."' disabled/></td>
+            <td><input type='text' name='campaignName'/></td><td><input type='text' name='teamname'/></td>
+            <td><input type='date' name='dateofbegin'/></td><td><input type='date' name='dateofend'/></td>
+            <td><input type='number' name='companyID' placeholder='Type in companyID not name!'/></td>
+            <td><input type='number' name='priorityID' placeholder='Type in priorityID not name!'/></td></tr>";
+            //TODO: if admin ende
 
             echo "</table>";
         }

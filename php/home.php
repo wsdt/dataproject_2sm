@@ -26,16 +26,21 @@ echo "<h1 class='text-center'>WElCOME TO BLUE SURFACE SEEKER EMPLOYEE LOGIN!</h1
 //Creates logout button anywhere you want it
 createLogoutButton();
 
+echo "<p>&nbsp;</p>";
+
 // MARKETING CAMPAGINS ----------------------------------------------------------------------------------------------
 
 //TODO: Place here marketing campaign tables etc.
+require_once 'Marketingcampaign.php';
+
+$tmp_campaign = new Marketingcampaign();
+$tmp_campaign->DB_showAllCampaigns();
+$tmp_campaign->__destruct();
 
 
 
 
-
-
-?>
+?><!--
 <form action="home.php" action="POST">
 Kampagnenname: <input type="text" name="Name"/><br/>
 Anfang: <input type="date" name="Anfang"/><br/>
@@ -43,8 +48,9 @@ Ende: <input type="date" name="Ende"/><br/>
 kurzbeschreibung: <input type="text" name="kurzbeschreibung"/><br/>
 Priorität: <input type="color" name="Priorität"/><br/>
 <input type="submit" value="Absenden"/>
-</form>
+</form>-->
 <?php
+/*
 include 'db/dbNewConnection.php';
 $kampagnenname = $_POST['Name'];
 $anfang = $_POST['Anfang'];
@@ -58,6 +64,7 @@ if(strlen($Name)>5){
     echo 'Ihre Angaben sind fehlerhaft.';
 }
 //echo '<a href="adressbuch.html">Zurück</a>';
+*/
 ?>
 </body>
 </html>

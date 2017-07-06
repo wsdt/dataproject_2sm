@@ -18,3 +18,12 @@
     width:40%;
     height:auto;
 }
+
+.campaigns {
+    /* KAMPAGNEN Tabelle */
+    width:90%;
+}
+
+.campaign input {
+    width:100%;
+}
