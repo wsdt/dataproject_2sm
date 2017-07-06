@@ -46,7 +46,7 @@ echo "</header>";
         $title = $_POST['title'];
         $textarea = $_POST['textarea'];
         if (strlen($title) > 0 && strlen($textarea) > 0) {
-            $news = "INSERT INTO News (title, newstext) VALUES ('" . $title . "','" . $textarea . "')";
+            $news = "INSERT INTO News (title, newstext) VALUES ('" . $title . "','" . $textarea . "');";
             $pushnews = mysqli_query($tunnel, $news) or DIE ("Fehler: " . mysql_error());
             echo 'Der Eintrag war erfolgreich';
         } else {
@@ -65,7 +65,7 @@ echo "</header>";
     <?php
     INCLUDE 'db/dbNewConnection.php';
 
-    $getnews="SELECT * FROM News ORDER BY newsID DESC";
+    $getnews="SELECT * FROM News ORDER BY newsID DESC;";
     $ergebnis1=mysqli_query($tunnel, $getnews);
 
     while($row1 = mysqli_fetch_array($ergebnis1))

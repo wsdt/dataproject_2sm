@@ -98,11 +98,11 @@ class Marketingcampaign
         }
     }
 
-    function DB_updateCampaign() {
+    function DB_updateCampaign() { /*Works, tested, but unused*/
         $sql = "UPDATE Campaign SET campaignID=".$this->getCampaignID().",
         campaignName='".$this->getCampaignName()."', dateofbegin='".$this->getDateofbegin()."', 
         dateofend='".$this->getDateofend()."', costumerID=".$this->getCostumerID().",
-        teamname=".$this->getTeamname().", priorityID=".$this->getPriorityID().";";
+        teamname='".$this->getTeamname()."', priorityID=".$this->getPriorityID().";";
 
         if(($this->DB_executeSQLstatement($sql))===false) {
             echo "ERROR: Campaign could not be updated. (in DB_updateCampaign())";
@@ -157,11 +157,14 @@ class Marketingcampaign
                     echo "<td><edit</td><td><input type='submit' name='delete_campaign' value='Delete'/></td>"; //TODO: als formular nicht mit ajax wenn möglich
                 }
                 echo "<input type='hidden' name='campaignID' value='".$row['campaignID']."'/>";
+
+                //Notice: Diese Felder wären für ein Update der Kampagnen hilfreich gewesen, wurde aus Zeitgründen aber weggelassen, da ein Update-Statement schon in der Profile.php vorhanden ist.
                 /*<input type='hidden' name='campaignName' value='".$row['campaignName']."'/>
                 <input type='hidden' name='teamname' value='".$row['teamname']."'/>
                 <input type='hidden' name='dateofbegin' value='".$row['dateofbegin']."'/>
                 <input type='hidden' name='dateofend' value='".$row['dateofend']."'/>
-                <input type='hidden' name='companyname' value='".$row['companyname']."'/>*/ //TODO: Hier ID nicht name, also irgendwie von abfrage herholen
+                <input type='hidden' name='costumerID' value='".$row['costumerID']."'/>
+                <input type='hidden' name='priorityID' value='".$row['priorityID']."'/>";*/
 
                 echo "</tr></form>";
                 $lastrow = $row['campaignID'];
