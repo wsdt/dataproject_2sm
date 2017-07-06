@@ -28,6 +28,7 @@ echo "</header>";
         $curr_user = $curr_user->loadUser_from_DB($_COOKIE['Username']);
         if ($curr_user->isAdmin()) {
             //If User is Admin he can add news articles
+            //TODO: News Delete Button könnte in dieses Form eingebunden werden
             echo "<form action='" . $_SERVER['PHP_SELF'] . "' method=\"POST\">
             Titel:     <input type=\"text\" name=\"title\"/><br/>
             Text:      <textarea id=\"text\" name=\"textarea\" cols=\"35\" rows=\"4\"></textarea><br/>
