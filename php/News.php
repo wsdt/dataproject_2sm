@@ -26,16 +26,20 @@ echo "</header>";
         require_once 'Employee.php';
         $curr_user = new Employee();
         $curr_user = $curr_user->loadUser_from_DB($_COOKIE['Username']);
-        if ($curr_user->isAdmin()) {
-            //If User is Admin he can add news articles
-            //TODO: News Delete Button könnte in dieses Form eingebunden werden
-            echo "<form action='" . $_SERVER['PHP_SELF'] . "' method=\"POST\">
+        if ($curr_user !== false) {
+            if ($curr_user->isAdmin()) { /*IDE says that method not found because loadUser_from_DB() also gives a boolean (=false) if User not found*/
+                //If User is Admin he can add news articles
+                //TODO: News Delete Button könnte in dieses Form eingebunden werden
+                echo "<form action='" . $_SERVER['PHP_SELF'] . "' method=\"POST\">
             Titel:     <input type=\"text\" name=\"title\"/><br/>
             Text:      <textarea id=\"text\" name=\"textarea\" cols=\"35\" rows=\"4\"></textarea><br/>
             <input type=\"submit\" value=\"Absenden\"/>
             </form>";
+            } else {
+                echo "<span style='color:#ff0000;'>Info: Please get admin rights to add news articles! (Profile.php)</span>";
+            }
         } else {
-            echo "<span style='color:#ff0000;'>Info: Please get admin rights to add news articles! (Profile.php)</span>";
+            echo "ERROR: Cannot get user data. (in News.php)";
         }
         $curr_user->__destruct();
         ?>
@@ -47,7 +51,7 @@ echo "</header>";
         $textarea = $_POST['textarea'];
         if (strlen($title) > 0 && strlen($textarea) > 0) {
             $news = "INSERT INTO News (title, newstext) VALUES ('" . $title . "','" . $textarea . "');";
-            $pushnews = mysqli_query($tunnel, $news) or DIE ("Fehler: " . mysql_error());
+            $pushnews = mysqli_query($tunnel, $news);
             echo "<div class='text-center'>Der Eintrag war erfolgreich</div>";
         } else {
             echo "<div class='text-center'>Fehler: Ihre Angaben sind fehlerhaft</div>";
@@ -95,12 +99,5 @@ echo "</header>";
 <div class="text-center">
     <img title="BLUE SURFACE SEEKER" alt="BLUE SURFACE SEEKER" src="../images/Logo.jpg" width="600" height="740"/>
 </div>
-</body>
-</html>
-
-
-</section>
-
-
 </body>
 </html>
