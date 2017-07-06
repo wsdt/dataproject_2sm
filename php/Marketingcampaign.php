@@ -101,7 +101,7 @@ class Marketingcampaign
     function DB_showAllCampaigns() {
         $sql = ""; //TODO: Place here Sql statement
 
-        if(empty())
+        //if(empty())
     }
 
 
