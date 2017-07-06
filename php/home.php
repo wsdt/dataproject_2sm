@@ -36,7 +36,7 @@ createLogoutButton();
 
 
 ?>
-<form action="home.php" action="POST"/>
+<form action="home.php" action="POST">
 Kampagnenname: <input type="text" name="Name"/><br/>
 Anfang: <input type="date" name="Anfang"/><br/>
 Ende: <input type="date" name="Ende"/><br/>

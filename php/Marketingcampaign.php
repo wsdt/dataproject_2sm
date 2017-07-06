@@ -13,7 +13,7 @@ class Marketingcampaign
     private $dateofbegin;
     private $dateofend;
     private $costumerID;
-    private $campaignteamID;
+    private $teamname;
     private $priorityID;
 
     //GETTER/SETTER
@@ -22,6 +22,12 @@ class Marketingcampaign
     }
     function getCampaignID() {
         return $this->campaignID;
+    }
+    function setTeamname($teamname) {
+        $this->teamname=$teamname;
+    }
+    function getTeamname() {
+        return $this->teamname;
     }
     function setCampaignName($campaignName) {
         $this->campaignName = $campaignName;
@@ -49,12 +55,6 @@ class Marketingcampaign
     function getCostumerID() {
         return $this->costumerID;
     }
-    function setCampaignTeamID($campaignteamid) {
-        $this->campaignteamID = $campaignteamid;
-    }
-    function getCampaignTeamID() {
-        return $this->campaignteamID;
-    }
     function setPriorityID($priorityid) {
         $this->priorityID = $priorityid;
     }
@@ -71,8 +71,8 @@ class Marketingcampaign
     }
 
     function DB_insertCampaign() {
-        $sql = "INSERT INTO Campaign VALUES ('".$this->getCampaignName()."','".$this->getDateofbegin()."','".$this->getDateofend()."',
-        ".$this->getCostumerID().",".$this->getCampaignTeamID().",".$this->getPriorityID().");";
+        $sql = "INSERT INTO Campaign VALUES ('".$this->getCampaignName()."','".$this->getTeamname()."','".$this->getDateofbegin()."','".$this->getDateofend()."',
+        ".$this->getCostumerID().",".$this->getPriorityID().");";
 
         if(!($this->DB_executeSQLstatement($sql))) {
             echo "ERROR: Campaign could not be inserted. (in DB_insertCampaign())";
@@ -91,11 +91,15 @@ class Marketingcampaign
         $sql = "UPDATE Campaign SET campaignID=".$this->getCampaignID().",
         campaignName='".$this->getCampaignName()."', dateofbegin='".$this->getDateofbegin()."', 
         dateofend='".$this->getDateofend()."', costumerID=".$this->getCostumerID().",
-        campaignID=".$this->getCampaignTeamID().", priorityID=".$this->getPriorityID().";";
+        teamname=".$this->getTeamname().", priorityID=".$this->getPriorityID().";";
 
         if(!($this->DB_executeSQLstatement($sql))) {
             echo "ERROR: Campaign could not be updated. (in DB_updateCampaign())";
         }
+    }
+
+    function DB_showAllCampaigns() {
+        $sql = "SELECT campaignID, campaignName, dateofbegin, dateofend, "
     }
 
 
