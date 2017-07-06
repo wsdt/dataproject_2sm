@@ -12,7 +12,7 @@
 <body>
 <?php
 require_once 'functions.php';
-//pageAuthentification(true); //Login-Page is the only exception where false should be placed!
+pageAuthentification(true); //Login-Page is the only exception where false should be placed!
 
 
 // Navigation einfügen und verlinken
@@ -72,15 +72,21 @@ echo "</header>";
     {
         echo"<h1 class='text-center'>".$row1['title']."</h1>";
         echo"<p class='text-center'>".$row1['newstext']."</p><br><br>";
-        echo"";
+        echo"<td><edit</td><td><input type='submit' name='delete_news' value='Delete'/></td>";
     }
 
-    if (isset($_POST['delete']))
+    if (isset($_POST['delete_news'])) {
+        $delete_news = new Newsclass();
+        $delete_news->setnewsID($_POST['newsID']);
+        $delete_news->DB_deleteNews();
+    }
+
+    /*if (isset($_POST['delete']))
     {
         $deletentry="DELETE * FROM News";
         $isdeleted=mysqli_query($tunnel,$deletentry);
     }
-
+    */
     mysqli_close($tunnel);
     ?>
 </section>
