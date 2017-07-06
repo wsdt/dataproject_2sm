@@ -1,3 +1,14 @@
+/*
+IMPORTANT: Achtung, wie gewünscht befinden sich unten an dieser Datei die verwendeten Select, Insert,...-Statements aus unseren Dateien.
+Bitte führen Sie diese hier nicht direkt auf der Datenbank aus, da diese nur zur Veranschaulichung dienen und ohnehin so keinen Sinn machen.
+
+Des Weiteren: Wir haben uns bei diesem Projekt mehr auf umfangreiche Funktionalitäten konzentriert (Objektorientierung, Admin-Rechte, etc.)
+deshalb haben wir aufgrund der knappen Zeit die uns trotz regelmäßiger Arbeit durch die Finger geronnen ist, wenig Wert auf das äußere
+Erscheinungsbild (CSS, etc.) gelegt. Ich hoffe Sie lassen derartige Faktoren nicht in die Noten einfließen.
+
+*/
+
+
 CREATE DATABASE MARKETINGCOMPANY;
 /*DROP DATABASE MARKETINGCOMPANY;*/
 USE MARKETINGCOMPANY;
@@ -39,6 +50,7 @@ CREATE TABLE Profil  (
     ,PRIMARY KEY (Username)
     );
 
+INSERT INTO Campaign VALUES ('15','12','1997-12-15','1999-12-12', 1,1);
 
 CREATE TABLE Campaign (
 	campaignID INT NOT NULL AUTO_INCREMENT
@@ -65,10 +77,6 @@ CREATE TABLE News (
     );
 
 
-/*Test für Kampagnenabfrage*/
-/*INSERT INTO Campaign VALUES
-('Test','testteam','15.05.2017','20.05.2017',1,1);*/
-
 /* Es gibt nur diese 3 Prioritäten, daher ist es sinnvoller diese direkt in die Datenbank einzubinden */
 
 INSERT INTO Priority VALUES
@@ -77,9 +85,9 @@ INSERT INTO Priority VALUES
     (3,'green','#00ff00');
 
 
-/*Wir haben 3 Update Insert Delete und Read Beispiele, aus Zeitgründen füllten wir die Kunden
+/*Wir haben 1 Update sowie jeweils 3 Insert Delete und Read Beispiele, aus Zeitgründen füllten wir die Kunden
 einsweilen mittels Insert auf, das die Marketingfirma bereits mit der Website arbeiten kann
-wärendessen wir dieFeinheiten noch programmieren */
+wärendessen wir die Feinheiten noch programmieren */
 
 INSERT INTO Costumer VALUES
 (1,'Company1','Chef1','1548452'),
@@ -90,6 +98,8 @@ INSERT INTO Costumer VALUES
 (6,'Company6','Chef6','8455665');
 
 
+/*SQL Statements aus unseren Dateien*/
+/*Marketingcampaign.php (class): DB_showAllCampaigns(), Anzeigen der Marketingkampagnen*/
 SELECT campaignID, campaignName, teamname, dateofbegin,
 dateofend, companyname, hexcode FROM Campaign as a
 INNER JOIN Priority as b
@@ -97,13 +107,53 @@ ON b.priorityID = a.priorityID
 INNER JOIN Costumer as c
 ON c.costumerID = a.costumerID;
 
-INSERT INTO Campaign VALUES (1,'hh','jh','15.12.2016',
-'20.12.2017',1,1);
+/*EMPLOYEE.PHP (class): loadUser_from_DB() */
+SELECT * FROM Employees WHERE Username = '[PHP VARIABLE]';
 
+/*EMPLOYEE.PHP (class): DB_updateUser()*/
+UPDATE Employees
+	SET username='[PHP VAR]', Passwort='[PHP VAR]', isAdmin=0 /*Instead of 0 = [PHP VAR]*/
+    WHERE username='[PHP VAR]';
+
+/*EMPLOYEE.PHP (class): DB_addUser()*/
+INSERT INTO Employees (Username, Passwort, isAdmin) VALUES ('[PHP VAR]', '[PHP VAR]', '[PHP VAR]');
+
+/*EMPLOYEE.PHP (class) DB_deleteUser()*/
+DELETE FROM Profil WHERE Username='[PHP VAR]';
+DELETE FROM Employees WHERE Username='[PHP VAR]';
+
+/*EMPLOYEE.PHP (class) isUsernameAvailable()*/
+SELECT Username FROM Employees WHERE username = '[PHP VAR]';
+
+/*functions.php deleteProfileData() */
+DELETE FROM Profil WHERE Username='[PHP VAR]';
+
+/*Marketingcampaign.php (class), DB_insertCampaign() */
+INSERT INTO Campaign VALUES (1 /*instead of 1 [PHP VAR]*/,'[PHP VAR]','[PHP VAR]','[PHP VAR]','[PHP VAR]',
+        1 /*Instead of 1 a [PHP VAR]*/,1 /*Instead of 1 a [PHP VAR]*/);
+
+/*Marketingcampaign.php (class), DB_deleteCampaign()*/
+DELETE FROM Campaign WHERE campaignID=1 /*Instead of 1 a [PHP VAR]*/;
+
+/*Marketingcampaign.php (class), DB_updateCampaign()*/
+UPDATE Campaign SET campaignID=1/*Instead of 1 a [PHP VAR]*/,
+        campaignName='[PHP VAR]', dateofbegin='[PHP VAR]',
+        dateofend='[PHP VAR]', costumerID=1/*Instead of 1 a [PHP VAR]*/,
+        teamname='[PHP VAR]', priorityID=1/*Instead of 1 a [PHP VAR]*/;
+
+/*News.php, inline*/
+INSERT INTO News (title, newstext) VALUES ('[PHP VAR]','[PHP VAR]');
+
+/*News.php, inline*/
+SELECT * FROM News ORDER BY newsID DESC;
+
+/*NewsClass.php (class), DB_deleteNews()*/
+DELETE FROM News WHERE NewsID=1 /*Instead of 1 [PHP VAR]*/;
+
+/*OLD SOLUTION FOR USER (everything worked, but we changed it)*/
 /* EMPLOYEES: Registration is only possible by the IT-department (nevertheless we implemented a registration field with
 db-connection in our web-project. In our example all following accounts are admins. */
 
-    /*TODO: FOREIGN KEY DERWEIL LEER GELASSEN*/
 /*
 CREATE USER ''Johnny''@''localhost'' IDENTIFIED BY ''ibimsadatenbank'';
 GRANT ALL PRIVILEGES ON * . * TO ''Johnny''@''localhost'';
