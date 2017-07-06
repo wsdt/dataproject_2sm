@@ -114,7 +114,8 @@ class Marketingcampaign
                 INNER JOIN Priority as b
                 ON b.priorityID = a.priorityID
                 INNER JOIN Costumer as c
-                ON c.costumerID = a.costumerID;";
+                ON c.costumerID = a.costumerID
+                ORDER BY campaignID ASC;";
 
         $result = $this->DB_executeSQLstatement($sql); //Result = Objekt
 

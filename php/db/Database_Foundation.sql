@@ -105,7 +105,8 @@ dateofend, companyname, hexcode FROM Campaign as a
 INNER JOIN Priority as b
 ON b.priorityID = a.priorityID
 INNER JOIN Costumer as c
-ON c.costumerID = a.costumerID;
+ON c.costumerID = a.costumerID
+ORDER BY campaignID ASC;
 
 /*EMPLOYEE.PHP (class): loadUser_from_DB() */
 SELECT * FROM Employees WHERE Username = '[PHP VARIABLE]';
