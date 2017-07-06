@@ -121,11 +121,19 @@ class Marketingcampaign
         if($result->num_rows <= 0) {
             echo "<h3>Keine Campagnen vorhanden.</h3>";
         } else {
+            //Load current user
+            $curr_user = new Employee();
+            $curr_user = $curr_user->loadUser_from_DB($_COOKIE['Username']);
+
             //Kampagnen vorhanden
             echo "<table class='campaigns'>";
             //Generiere Überschriften
             echo "<tr><th>ID</th><th>Kampagnenname</th><th>Team(-name)</th>
-            <th>Start</th><th>Ende</th><th>Kunde</th><th>Priorität</th></tr>";
+            <th>Start</th><th>Ende</th><th>Kunde</th><th>Priorität</th>";
+
+            if ($curr_user->isAdmin()) {
+                echo "<th colspan='2'>Optionen</th></tr>";
+            }
 
             $lastrow = 0;
 
@@ -134,15 +142,23 @@ class Marketingcampaign
                 <td>".$row['campaignName']."</td><td>".$row['teamname']."</td>
                 <td>".$row['dateofbegin']."</td><td>".$row['dateofend']."</td>
                 <td>".$row['companyname']."</td><td style='background-color: " .$row['hexcode']. ";'>&nbsp;</td>";
+                if($curr_user->isAdmin()) {
+                    echo "<td>edit</td><td>delete</td>"; //TODO: als formular nicht mit ajax wenn möglich
+                }
+                echo "</tr>";
                 $lastrow = $row['campaignID'];
             }
-            //TODO: if admin: start
-            echo "<tr><td><input type='text' name='campaignID' value='".($lastrow+1)."' disabled/></td>
-            <td><input type='text' name='campaignName'/></td><td><input type='text' name='teamname'/></td>
-            <td><input type='date' name='dateofbegin'/></td><td><input type='date' name='dateofend'/></td>
-            <td><input type='number' name='companyID' placeholder='Type in companyID not name!'/></td>
-            <td><input type='number' name='priorityID' placeholder='Type in priorityID not name!'/></td></tr>";
-            //TODO: if admin ende
+            //Prüfe ob Admin
+            if ($curr_user->isAdmin()) {
+                echo "<form action='" . $_SERVER['PHP_SELF'] . "' name='new_campaign'>";
+                echo "<tr><td><input type='text' name='campaignID' value='" . ($lastrow + 1) . "' disabled/></td>
+                    <td><input type='text' name='campaignName'/></td><td><input type='text' name='teamname'/></td>
+                    <td><input type='date' name='dateofbegin'/></td><td><input type='date' name='dateofend'/></td>
+                    <td><input type='number' name='companyID' placeholder='Type in companyID not name!'/></td>
+                    <td><input type='number' name='priorityID' placeholder='Type in priorityID not name!'/></td>
+                    <td><input type='submit' value='Save'/></td><td><input type='reset' value='Reset'/></td></tr>";
+                echo "</form>";
+            }
 
             echo "</table>";
         }

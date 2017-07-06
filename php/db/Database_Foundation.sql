@@ -44,8 +44,8 @@ CREATE TABLE Campaign (
 	campaignID INT NOT NULL AUTO_INCREMENT
     ,campaignName VARCHAR (50)
     ,teamname VARCHAR (50)
-    ,dateofbegin DATE
-    ,dateofend DATE
+    ,dateofbegin VARCHAR(10)
+    ,dateofend VARCHAR(10)
     ,costumerID INT NOT NULL
     ,priorityID INT NOT NULL
     ,FOREIGN KEY (costumerID) REFERENCES Costumer (costumerID)
@@ -55,8 +55,7 @@ CREATE TABLE Campaign (
 	);
 
 
-SELECT campaignID, campaignName, teamname, dateofbegin,
-dateofend, companyname, hexcode FROM
+
 
 CREATE TABLE News (
 	newsID INT NOT NULL AUTO_INCREMENT
@@ -89,6 +88,17 @@ INSERT INTO Costumer VALUES
 (4,'Company4','Chef4','8941132'),
 (5,'Company5','Chef5','9876512'),
 (6,'Company6','Chef6','8455665');
+
+
+SELECT campaignID, campaignName, teamname, dateofbegin,
+dateofend, companyname, hexcode FROM Campaign as a
+INNER JOIN Priority as b
+ON b.priorityID = a.priorityID
+INNER JOIN Costumer as c
+ON c.costumerID = a.costumerID;
+
+INSERT INTO Campaign VALUES (1,'hh','jh','15.12.2016',
+'20.12.2017',1,1);
 
 /* EMPLOYEES: Registration is only possible by the IT-department (nevertheless we implemented a registration field with
 db-connection in our web-project. In our example all following accounts are admins. */
