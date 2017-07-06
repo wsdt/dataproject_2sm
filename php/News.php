@@ -72,7 +72,7 @@ echo "</header>";
     {
         echo"<h1 class='text-center'>".$row1['title']."</h1>";
         echo"<p class='text-center'>".$row1['newstext']."</p><br><br>";
-        echo"<td><edit</td><td><input type='submit' name='delete_news' value='Delete'/></td>";
+        echo"<div class='text-center'><input type='submit' name='delete_news' value='Delete'/></div>";
     }
 
     if (isset($_POST['delete_news'])) {
