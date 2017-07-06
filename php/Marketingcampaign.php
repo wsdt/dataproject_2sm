@@ -71,7 +71,7 @@ class Marketingcampaign
     }
 
     function DB_insertCampaign() {
-        $sql = "INSERT INTO Campaign VALUES (".$this->getCampaignID().",'".$this->getCampaignName()."','".$this->getDateofbegin()."','".$this->getDateofend()."',
+        $sql = "INSERT INTO Campaign VALUES ('".$this->getCampaignName()."','".$this->getDateofbegin()."','".$this->getDateofend()."',
         ".$this->getCostumerID().",".$this->getCampaignTeamID().",".$this->getPriorityID().");";
 
         if(!($this->DB_executeSQLstatement($sql))) {
@@ -87,7 +87,17 @@ class Marketingcampaign
         }
     }
 
-    
+    function DB_updateCampaign() {
+        $sql = "UPDATE Campaign SET campaignID=".$this->getCampaignID().",
+        campaignName='".$this->getCampaignName()."', dateofbegin='".$this->getDateofbegin()."', 
+        dateofend='".$this->getDateofend()."', costumerID=".$this->getCostumerID().",
+        campaignID=".$this->getCampaignTeamID().", priorityID=".$this->getPriorityID().";";
+
+        if(!($this->DB_executeSQLstatement($sql))) {
+            echo "ERROR: Campaign could not be updated. (in DB_updateCampaign())";
+        }
+    }
+
 
 
 
