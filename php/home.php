@@ -27,7 +27,9 @@ createLogoutButton();
 
 // MARKETING CAMPAGINS ----------------------------------------------------------------------------------------------
 
-//TODO: Place here marketing campaign tables etc. 
+//TODO: Place here marketing campaign tables etc.
+
+
 
 ?>
 </body>

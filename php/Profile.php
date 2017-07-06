@@ -141,8 +141,6 @@ if (!empty($_POST) && isset($_POST['profil_edited'])) {
             echo "ERROR: Old Password is wrong!";
         }
 
-
-
     }
 }
 
