@@ -76,7 +76,21 @@ echo "</header>";
     {
         echo"<h1 class='text-center'>".$row1['title']."</h1>";
         echo"<p class='text-center'>".$row1['newstext']."</p><br><br>";
-        echo"<div class='text-center'><input type='submit' name='delete_news' value='Delete'/></div>";
+                require_once 'Employee.php';
+                $curr_user = new Employee();
+                $curr_user = $curr_user->loadUser_from_DB($_COOKIE['Username']);
+                if ($curr_user !== false) {
+                    if ($curr_user->isAdmin()) { /*IDE says that method not found because loadUser_from_DB() also gives a boolean (=false) if User not found*/
+                        //If User is Admin he can add news articles
+                        echo"<div class='text-center'><input type='submit' name='delete_news' value='Delete'/></div>";
+                } else {
+                        echo "<div class='text-center'><span style='color:#ff0000;'>Info: Please get admin rights to delete Articles! (Profile.php)</span></div>";
+                    }
+                } else {
+        echo "ERROR: Cannot get user data. (in News.php)";
+    }
+    $curr_user->__destruct();
+
     }
 
     if (isset($_POST['delete_news'])) {
@@ -94,10 +108,7 @@ echo "</header>";
     mysqli_close($tunnel);
     ?>
 </section>
-<!-- Bild einfügen -->
-<!-- Falls der Mauszeiger auf das Bild zeigt, Wahrer Ultra anzeigen-->
-<div class="text-center">
-    <img title="BLUE SURFACE SEEKER" alt="BLUE SURFACE SEEKER" src="../images/Logo.jpg" width="600" height="740"/>
+
 </div>
 </body>
 </html>

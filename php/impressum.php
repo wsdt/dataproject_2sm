@@ -37,7 +37,14 @@ echo "<header>";
         <p>Verantwortlich nach § 55 Abs.2 RStV<br />Moritz Schreiberling<br />Musterstraße 2<br />80999 München</p>
     </div>
 </section>
-
+<br>
+<br>
+<br>
+<br>
+<!-- Bild einfügen -->
+<!-- Falls der Mauszeiger auf das Bild zeigt, Wahrer Ultra anzeigen-->
+<div class="text-center">
+    <img title="BLUE SURFACE SEEKER" alt="BLUE SURFACE SEEKER" src="../images/Logo.jpg" width="600" height="740"/>
 
 </body>
 </html>
