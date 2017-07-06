@@ -99,7 +99,9 @@ class Marketingcampaign
     }
 
     function DB_showAllCampaigns() {
-        $sql = "SELECT campaignID, campaignName, dateofbegin, dateofend, "
+        $sql = ""; //TODO: Place here Sql statement
+
+        if(empty())
     }
 
 
