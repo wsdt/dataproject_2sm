@@ -101,7 +101,25 @@ class Marketingcampaign
     function DB_showAllCampaigns() {
         $sql = ""; //TODO: Place here Sql statement
 
-        //if(empty())
+        $result = $this->DB_executeSQLstatement($sql); //Result = Objekt
+
+        if(empty($result)) {
+            echo "Keine Campagnen vorhanden.";
+        } else {
+            //Kampagnen vorhanden
+            echo "<table class='campaigns'>";
+            //Generiere Überschriften
+            echo "<tr><td>ID</td><td>Kampagnenname</td><td>Team(-name)</td>
+            <td>Start</td><td>Ende</td><td>Kunde</td><td>Priorität</td></tr>";
+            while ($row = mysqli_fetch_array($result)) {
+                echo "<tr><td>".$row['campaignID']."</td>
+                <td>".$row['campaignName']."</td><td>".$row['teamname']."</td>
+                <td>".$row['dateofbegin']."</td><td>".$row['dateofend']."</td>
+                <td>".$row['companyname']."</td><td style='background-color: " .$row['hexcode']. ";'>".$row['priorityid']."</td>";
+            }
+
+            echo "</table>";
+        }
     }
 
 
