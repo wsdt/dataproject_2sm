@@ -22,11 +22,22 @@ echo "</header>";
 ?>
 <section>
     <div class="text-center"><h1>Breaking News</h1>
-        <form action='<?php echo $_SERVER['PHP_SELF']; ?>' method="POST">
-            Titel:     <input type="text" name="title"/><br/>
-            Text:      <textarea id="text" name="textarea" cols="35" rows="4"></textarea><br/>
-            <input type="submit" value="Absenden"/>
-        </form>
+        <?php
+        require_once 'Employee.php';
+        $curr_user = new Employee();
+        $curr_user = $curr_user->loadUser_from_DB($_COOKIE['Username']);
+        if ($curr_user->isAdmin()) {
+            //If User is Admin he can add news articles
+            echo "<form action='" . $_SERVER['PHP_SELF'] . "' method=\"POST\">
+            Titel:     <input type=\"text\" name=\"title\"/><br/>
+            Text:      <textarea id=\"text\" name=\"textarea\" cols=\"35\" rows=\"4\"></textarea><br/>
+            <input type=\"submit\" value=\"Absenden\"/>
+            </form>";
+        } else {
+            echo "<span style='color:#ff0000;'>Info: Please get admin rights to add news articles! (Profile.php)</span>";
+        }
+        $curr_user->__destruct();
+        ?>
     </div>
     <?php
     if(!empty($_POST)) {

@@ -123,7 +123,17 @@ class Marketingcampaign
         } else {
             //Load current user
             $curr_user = new Employee();
-            $curr_user = $curr_user->loadUser_from_DB($_COOKIE['Username']);
+            $username_tmp = "";
+            if (isset($_COOKIE['Username']) || isset($_POST['Username'])) {
+                if (!isset($_COOKIE['Username']) && isset($_POST['Username'])) {
+                    $username_tmp = $_POST['Username'];
+                } else if (isset($_COOKIE['Username']) && !isset($_POST['Username'])) {
+                    $username_tmp = $_COOKIE['Username'];
+                }
+            } else {
+                echo "WARNING: Please refresh site. Could not find cookie or post-var! (in DB_showAllCampaigns())";
+            }
+            $curr_user = $curr_user->loadUser_from_DB($username_tmp);
 
             //Kampagnen vorhanden
             echo "<table class='campaigns'>";

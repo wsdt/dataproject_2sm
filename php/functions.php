@@ -66,7 +66,7 @@ function createProfilForm($nname, $vname, $kurzbeschreibung, $persongender) {
     } else {
         echo "<input type='checkbox' value='true' name='makeAdmin'/>";
     }
-    echo " Get Admin rights</td>";
+    echo " Get Admin rights <span style='color:#ff0000;'>(if unselected, you will loose admin rights!)</span></td>";
     echo "</form></table>";
 }
 
