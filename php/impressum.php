@@ -46,5 +46,10 @@ echo "<header>";
 <div class="text-center">
     <img title="BLUE SURFACE SEEKER" alt="BLUE SURFACE SEEKER" src="../images/Logo.jpg" width="600" height="740"/>
 
+    <p>
+        <br>
+        <br>
+        <br>
+    </p>
 </body>
 </html>

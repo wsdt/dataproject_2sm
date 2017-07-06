@@ -21,10 +21,8 @@ pageAuthentification(true); //Login-Page is the only exception where false shoul
 echo "<header>";
 createNav();
 echo "</header>";
-echo "<h1 class='text-center'>WElCOME TO BLUE SURFACE SEEKER EMPLOYEE LOGIN!</h1>";
-
-//Creates logout button anywhere you want it
-createLogoutButton();
+echo "<br><br><h1 class='text-center'>WElCOME TO BLUE SURFACE SEEKER EMPLOYEE LOGIN!</h1>";
+echo "<br><br>";
 
 echo "<p>&nbsp;</p>";
 

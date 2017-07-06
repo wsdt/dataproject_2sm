@@ -38,7 +38,7 @@ function createProfilForm($nname, $vname, $kurzbeschreibung, $persongender) {
         $persongender_value = $persongender;
     }
 
-    echo "<table><form method='post' name='profil_edit_form' action='".$_SERVER['PHP_SELF']."' onsubmit='return evtlAskForPermissionToDeleteData()'>";
+    echo "<table style=\"text-align: left; width: 50%; height: 30%; margin-left: auto; margin-right: auto;\"border=\"0\" cellpadding=\"0\" cellspacing=\"0\" ><form method='post' name='profil_edit_form' action='".$_SERVER['PHP_SELF']."' onsubmit='return evtlAskForPermissionToDeleteData()'>";
     echo "<tr><td>Username: </td><td><input type='text' id='username' disabled name='username' value='".$_COOKIE['Username']."' placeholder='".$_COOKIE['Username']."' /></td>";
     echo "<tr><td>Old password: </td><td><input id='passwort_old' type='password' name='passwort_old' placeholder='Type in old pwd to change it' /></td>";
     echo "<tr><td>New password: </td><td><input id='passwort_new' type='password' name='passwort_new' placeholder='Your future password' /></td>";

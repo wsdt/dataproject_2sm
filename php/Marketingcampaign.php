@@ -145,7 +145,7 @@ class Marketingcampaign
 
         } else {
             //Kampagnen vorhanden
-            echo "<table class='campaigns'>";
+            echo "<table class='campaigns' style=\"text-align: left; width: 50%; height: 30%; margin-left: auto; margin-right: auto;\"border=\"0\" cellpadding=\"0\" cellspacing=\"0\">";
             //Generiere Überschriften
             echo "<tr><th>ID</th><th>Kampagnenname</th><th>Team(-name)</th>
             <th>Start</th><th>Ende</th><th>Kunde</th><th>Priorität</th>";

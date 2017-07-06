@@ -60,6 +60,7 @@ pageAuthentification(true); //Login-Page is the only exception where false shoul
 echo "<header>";
     createNav();
     echo "</header>";
+    echo "<br><br><h1 class='text-center'>Profil Ändern:</h1>";
 
 INCLUDE 'db/dbNewConnection.php';
 
@@ -152,22 +153,23 @@ if (!empty($_POST) && isset($_POST['profil_edited'])) {
 
 
 if (!$profildata_available) {
-    echo "<h2>Herzlich Willkommen ".$_COOKIE['Username']."! </h2>";
-    echo "<p>Sie haben zu Ihrem erstellten Profil noch keine genaueren Angaben gemacht. Möchten Sie dies hier nachholen?</p>";
+    echo "<h2 class='text-center'>Herzlich Willkommen ".$_COOKIE['Username']."! </h2>";
+    echo "<p class='text-center'>Sie haben zu Ihrem erstellten Profil noch keine genaueren Angaben gemacht. Möchten Sie dies hier nachholen?</p><br><br>";
     createProfilForm(false,false,false,false);
 } else {
     while ($row = $fetched_array) {
         //VON HIER BIS...
-        echo "<table>";
-        echo "<tr><td>Username: </td>";
+        echo "<br><br>";
+        echo "<table class='table-bordered' style=\"text-align: left; width: 50%; height: 30%; margin-left: auto; margin-right: auto;\"border=\"0\" cellpadding=\"0\" cellspacing=\"0\" >";
+        echo "<tr><td><b>Username: </b></td>";
         echo "<td>" . $row['Username'] . "</td></tr>";
-        echo "<tr><td>Nachname: </td>";
+        echo "<tr><td><b>Nachname:</b></td>";
         echo "<td>" . $row['nname'] . "</td></tr>";
-        echo "<tr><td>Vorname: </td>";
+        echo "<tr><td><b>Vorname: </b></td>";
         echo "<td>" . $row['vname'] . "</td></tr>";
-        echo "<tr><td>Kurzbeschreibung: </td>";
+        echo "<tr><td><b>Kurzbeschreibung: </b></td>";
         echo "<td>" . $row['kurzbeschreibung'] . "</td></tr>";
-        echo "<tr><td>Geschlecht: </td>";
+        echo "<tr><td><b>Geschlecht: </b></td>";
         echo "<td>" . $row['persongender'] . "</td></tr>";
         echo "</table><br /><br />";
         //... BIS HIER, könnte man auskommentieren, wenn man die Profildaten nur über Formular ausgeben lassen möchte
