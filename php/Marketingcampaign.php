@@ -118,23 +118,32 @@ class Marketingcampaign
 
         $result = $this->DB_executeSQLstatement($sql); //Result = Objekt
 
-        if($result->num_rows <= 0) {
-            echo "<h3>Keine Campagnen vorhanden.</h3>";
-        } else {
-            //Load current user
-            $curr_user = new Employee();
-            $username_tmp = "";
-            if (isset($_COOKIE['Username']) || isset($_POST['Username'])) {
-                if (!isset($_COOKIE['Username']) && isset($_POST['Username'])) {
-                    $username_tmp = $_POST['Username'];
-                } else if (isset($_COOKIE['Username']) && !isset($_POST['Username'])) {
-                    $username_tmp = $_COOKIE['Username'];
-                }
-            } else {
-                echo "WARNING: Please refresh site. Could not find cookie or post-var! (in DB_showAllCampaigns())";
+        //Load current user
+        $curr_user = new Employee();
+        $username_tmp = "";
+        if (isset($_COOKIE['Username']) || isset($_POST['Username'])) {
+            if (!isset($_COOKIE['Username']) && isset($_POST['Username'])) {
+                $username_tmp = $_POST['Username'];
+            } else if (isset($_COOKIE['Username']) && !isset($_POST['Username'])) {
+                $username_tmp = $_COOKIE['Username'];
             }
-            $curr_user = $curr_user->loadUser_from_DB($username_tmp);
+        } else {
+            echo "WARNING: Please refresh site. Could not find cookie or post-var! (in DB_showAllCampaigns())";
+        }
+        $curr_user = $curr_user->loadUser_from_DB($username_tmp);
 
+        $lastrow = 0;
+
+        if($result->num_rows <= 0) {
+            echo "<h3>Keine Campagnen vorhanden.<p>&nbsp;</p></h3>";
+            if($curr_user->isAdmin()) {
+                echo "<table class='campaigns'>";
+                //Generiere Überschriften
+                echo "<tr><th>ID</th><th>Kampagnenname</th><th>Team(-name)</th>
+                <th>Start</th><th>Ende</th><th>Kunde</th><th>Priorität</th>";
+            } //Wenn kein Admin sind keine Textfelder, dann sollen auch keine Headings sein
+
+        } else {
             //Kampagnen vorhanden
             echo "<table class='campaigns'>";
             //Generiere Überschriften
@@ -144,8 +153,6 @@ class Marketingcampaign
             if ($curr_user->isAdmin()) {
                 echo "<th colspan='2'>Optionen</th></tr>";
             }
-
-            $lastrow = 0;
 
             while ($row = mysqli_fetch_array($result)) {
                 echo "<form name='form_campaign_row' action='".$_SERVER['PHP_SELF']."' method='post'>";
@@ -169,17 +176,17 @@ class Marketingcampaign
                 echo "</tr></form>";
                 $lastrow = $row['campaignID'];
             }
-            //Prüfe ob Admin
-            if ($curr_user->isAdmin()) {
-                echo "<form action='" . $_SERVER['PHP_SELF'] . "' name='new_campaign' method='post'>";
-                echo "<tr><td><input type='text' name='campaignID' value='" . ($lastrow + 1) . "' readonly/></td>
+            }
+        //Prüfe ob Admin
+        if ($curr_user->isAdmin()) {
+            echo "<form action='" . $_SERVER['PHP_SELF'] . "' name='new_campaign' method='post'>";
+            echo "<tr><td><input type='text' name='campaignID' value='" . ($lastrow + 1) . "' readonly/></td>
                     <td><input type='text' name='campaignName'/></td><td><input type='text' name='teamname'/></td>
                     <td><input type='date' name='dateofbegin'/></td><td><input type='date' name='dateofend'/></td>
                     <td><input type='number' name='companyID' placeholder='Type in companyID not name!'/></td>
                     <td><input type='number' name='priorityID' placeholder='Type in priorityID not name!'/></td>
                     <td><input type='submit' value='Save' name='saveNewCampaign'/></td><td><input type='reset' value='Reset'/></td></tr>";
-                echo "</form>";
-            }
+            echo "</form>";
 
             echo "</table>";
         }
