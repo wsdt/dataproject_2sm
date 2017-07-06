@@ -223,7 +223,7 @@ class Employee
             $this->closeDBConnection($tunnel); //Schließe Datenbankverbindung
 
             //Username wird überprüft, ob bereits vorhanden, dann wird true zurückgegeben wenn keiner vorhanden war
-            if ($control == 0) {
+            if ($control != 0) {
                 return false;
             } else {
                 return true;

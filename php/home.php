@@ -33,6 +33,23 @@ echo "<p>&nbsp;</p>";
 //TODO: Place here marketing campaign tables etc.
 require_once 'Marketingcampaign.php';
 
+if(isset($_POST['saveNewCampaign'])) {
+    $new_campaign = new Marketingcampaign();
+    $new_campaign->setCampaignID($_POST['campaignID']);
+    $new_campaign->setCampaignName($_POST['campaignName']);
+    $new_campaign->setTeamname($_POST['teamname']);
+    $new_campaign->setDateofbegin($_POST['dateofbegin']);
+    $new_campaign->setDateofend($_POST['dateofend']);
+    $new_campaign->setCostumerID($_POST['companyID']);
+    $new_campaign->setPriorityID($_POST['priorityID']);
+    $new_campaign->DB_insertCampaign();
+}
+if (isset($_POST['delete_campaign'])) {
+    $delete_campaign = new Marketingcampaign();
+    $delete_campaign->setCampaignID($_POST['campaignID']);
+    $delete_campaign->DB_deleteCampaign();
+}
+
 $tmp_campaign = new Marketingcampaign();
 $tmp_campaign->DB_showAllCampaigns();
 $tmp_campaign->__destruct();

@@ -62,11 +62,11 @@ function createProfilForm($nname, $vname, $kurzbeschreibung, $persongender) {
     $tmp_employee = new Employee();
     $tmp_employee->loadUser_from_DB($_COOKIE['Username']);
     if ($tmp_employee->isAdmin()) {
-        echo "<input type='checkbox' name='makeAdmin' checked />";
+        echo "<input type='checkbox' name='makeAdmin' value='true' checked />";
     } else {
-        echo "<input type='checkbox' name='makeAdmin'/>";
+        echo "<input type='checkbox' value='true' name='makeAdmin'/>";
     }
-    echo " Get Admin rights</td>";
+    echo " Get Admin rights <span style='color:#ff0000;'>(if unselected, you will loose admin rights!)</span></td>";
     echo "</form></table>";
 }
 
