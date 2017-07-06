@@ -58,6 +58,15 @@ function createProfilForm($nname, $vname, $kurzbeschreibung, $persongender) {
     echo "</td>";
     echo "<tr><td colspan='2'><input type='checkbox' name='deleteProfilData' /> Lösche Profildaten (Betrifft nicht deinen Account)</td></tr>";
     echo "<tr><td><input type='reset' value='Formular leeren'/></td><td><input type='submit' name='profil_edited' value='Profil aktualisieren'></td></tr>";
+    echo "<tr><td colspan='2'>&nbsp;</td></tr><tr><td colspan='2'>";
+    $tmp_employee = new Employee();
+    $tmp_employee->loadUser_from_DB($_COOKIE['Username']);
+    if ($tmp_employee->isAdmin()) {
+        echo "<input type='checkbox' name='makeAdmin' checked />";
+    } else {
+        echo "<input type='checkbox' name='makeAdmin'/>";
+    }
+    echo " Get Admin rights</td>";
     echo "</form></table>";
 }
 

@@ -142,11 +142,16 @@ class Employee
     function DB_updateUser()
     {
         if (!($this->isUsernameAvailable())) {
+            $isAdmin = 0;
+            if ($this->isAdmin()) {
+                $isAdmin = 1;
+            }
+
             $tunnel = $this->establishDBConnection();
             $sql = "UPDATE Employees
-                    SET username='".$this->getUsername()."', Passwort='".$this->getPasswordHash()."'
+                    SET username='".$this->getUsername()."', Passwort='".$this->getPasswordHash()."', isAdmin=".$isAdmin."
                     WHERE username='".$this->getUsername()."';";
-            $result = mysqli_query($tunnel, $sql);
+            $result = mysqli_query($tunnel, $sql); //TODO: Admin wird noch nicht gesetzt
 
             $this->closeDBConnection($tunnel);
 
@@ -218,7 +223,7 @@ class Employee
             $this->closeDBConnection($tunnel); //Schließe Datenbankverbindung
 
             //Username wird überprüft, ob bereits vorhanden, dann wird true zurückgegeben wenn keiner vorhanden war
-            if ($control != 0) {
+            if ($control == 0) {
                 return false;
             } else {
                 return true;
@@ -243,6 +248,10 @@ class Employee
     function makeAdmin()
     {
         $this->isAdmin = true;
+    }
+
+    function unmakeAdmin() {
+        $this->isAdmin = false;
     }
 
     function isAdmin()

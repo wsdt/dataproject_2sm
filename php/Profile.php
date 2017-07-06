@@ -76,9 +76,6 @@ $fetched_array = mysqli_fetch_array($result);
 $profildata_available = !empty($fetched_array);
 
 if (!empty($_POST) && isset($_POST['profil_edited'])) {
-    //TODO: Insert oder Update Statement wenn Profil aktualisiert oder erstmals ergänzt wird.
-    //TODO: IMPORTANT: Es ist ok wenn bei manchen Felder nichts angegeben wird. Dann wird einfach null oder nichts in die Datenbank gespeichert,
-    //TODO: ABER: bei UPDATE besonders darauf zu achten, dass NULL-Werte (also leere Formularfelder) NICHT die bestehenden Werte in der Datenbank überschreiben
     if (!isset($_POST['deleteProfilData'])) { //Wenn Profildaten nicht gelöscht werden sollen
         //Undefinierte Indizes to empty string, so muss beim erstmaligen Eintragen nicht zwingend ganzes Profil ausgefüllt werden
         if (!isset($_POST['nname'])) { $nname = "";} else { $nname = $_POST['nname'];}
@@ -87,7 +84,6 @@ if (!empty($_POST) && isset($_POST['profil_edited'])) {
         if (!isset($_POST['persongender'])) { $persongender = "m";} else { $persongender = $_POST['persongender'];}//obwohl standardmaessig gesetzt, hier nochmal vorsichtshalber pruefen
 
         if ($profildata_available) {
-            //TODO: Hier Tabelle updaten mit untenstehenden Formulardaten
             //require 'db/dbNewConnection.php';
 
             $sql = "UPDATE Profil
@@ -140,8 +136,18 @@ if (!empty($_POST) && isset($_POST['profil_edited'])) {
         } else {
             echo "ERROR: Old Password is wrong!";
         }
-
     }
+
+    //Admin changer
+    $tmp_user = new Employee();
+    $tmp_user->loadUser_from_DB($_COOKIE['Username']);
+
+    if (isset($_POST['makeAdmin'])) {
+        $tmp_user->makeAdmin();
+    } else {
+        $tmp_user->unmakeAdmin();
+    }
+    $tmp_user->DB_updateUser();
 }
 
 
