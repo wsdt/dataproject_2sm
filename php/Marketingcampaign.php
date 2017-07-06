@@ -63,9 +63,31 @@ class Marketingcampaign
     }
     //END of Getter/Setter
     //DB functions
-    function DB_insertCampaign() {
-
+    function DB_executeSQLstatement($sql) {
+        $this->establishDBConnection();
+        $result = mysqli_query($tunnel, $sql);
+        $this->closeDBConnection($tunnel);
+        return $result;
     }
+
+    function DB_insertCampaign() {
+        $sql = "INSERT INTO Campaign VALUES (".$this->getCampaignID().",'".$this->getCampaignName()."','".$this->getDateofbegin()."','".$this->getDateofend()."',
+        ".$this->getCostumerID().",".$this->getCampaignTeamID().",".$this->getPriorityID().");";
+
+        if(!($this->DB_executeSQLstatement($sql))) {
+            echo "ERROR: Campaign could not be inserted. (in DB_insertCampaign())";
+        }
+    }
+
+    function DB_deleteCampaign() {
+        $sql = "DELETE FROM Campaign WHERE campaignID=".$this->getCampaignID().";";
+
+        if(!($this->DB_executeSQLstatement($sql))) {
+            echo "ERROR: Campaign could not be deleted. (in DB_deleteCampaign())";
+        }
+    }
+
+    
 
 
 

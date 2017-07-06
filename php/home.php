@@ -46,19 +46,18 @@ Priorität: <input type="color" name="Priorität"/><br/>
 </form>
 <?php
 include 'db/dbNewConnection.php';
-$kampagnenname = $_POST[‘Name’];
-$anfang = $_POST[‘Anfang’];
-$ende = $_POST[‘Ende’];
-$kurzbeschreibung = $_POST[‘kurzbeschreibung’];
-$priorität = $_POST[‘Priorität’];
+$kampagnenname = $_POST['Name'];
+$anfang = $_POST['Anfang'];
+$ende = $_POST['Ende'];
+$kurzbeschreibung = $_POST['kurzbeschreibung'];
+$priorität = $_POST['Priorität'];
 if(strlen($Name)>5){
-    $sql1 = 'INSERT INTO Priority (prioritycolour) VALUES ("'.$priorität.'")';
-    $sql2 =
+
     echo 'Der Eintrag war erfolgreich';
 } else {
     echo 'Ihre Angaben sind fehlerhaft.';
 }
-echo '<a href="adressbuch.html">Zurück</a>';
+//echo '<a href="adressbuch.html">Zurück</a>';
 ?>
 </body>
 </html>
