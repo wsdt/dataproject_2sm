@@ -12,6 +12,7 @@
 <body>
 <?php
 require_once 'functions.php';
+require_once 'Newsclass.php';
 pageAuthentification(true); //Login-Page is the only exception where false should be placed!
 
 
@@ -19,7 +20,18 @@ pageAuthentification(true); //Login-Page is the only exception where false shoul
 echo "<header>";
 createNav();
 echo "</header>";
+
+//Evtl. delete news article
+if (isset($_POST['delete_news'])) {
+    $delete_news = new Newsclass();
+    $delete_news->setnewsID($_POST['news_id']);
+    $delete_news->DB_deleteNews();
+}
+
+
+
 ?>
+
 <section>
     <div class="text-center"><h1>Breaking News</h1>
         <?php
@@ -29,14 +41,13 @@ echo "</header>";
         if ($curr_user !== false) {
             if ($curr_user->isAdmin()) { /*IDE says that method not found because loadUser_from_DB() also gives a boolean (=false) if User not found*/
                 //If User is Admin he can add news articles
-                //TODO: News Delete Button könnte in dieses Form eingebunden werden
                 echo "<form action='" . $_SERVER['PHP_SELF'] . "' method=\"POST\">
             Titel:     <input type=\"text\" name=\"title\"/><br/>
             Text:      <textarea id=\"text\" name=\"textarea\" cols=\"35\" rows=\"4\"></textarea><br/>
             <input type=\"submit\" value=\"Absenden\"/>
             </form>";
             } else {
-                echo "<span style='color:#ff0000;'>Info: Please get admin rights to add news articles! (Profile.php)</span>";
+                echo "<span style='color:#ff0000;'>Info: Please get admin rights to add or delete news articles! (Profile.php)</span>";
             }
         } else {
             echo "ERROR: Cannot get user data. (in News.php)";
@@ -45,7 +56,7 @@ echo "</header>";
         ?>
     </div>
     <?php
-    if(!empty($_POST)) {
+    if(!empty($_POST) && isset($_POST['title'])) {
         INCLUDE 'db/dbNewConnection.php';
         $title = $_POST['title'];
         $textarea = $_POST['textarea'];
@@ -58,11 +69,6 @@ echo "</header>";
         }
         mysqli_close($tunnel);
     }
-
-
-
-
-
 
 
     ?>
@@ -82,10 +88,11 @@ echo "</header>";
                 if ($curr_user !== false) {
                     if ($curr_user->isAdmin()) { /*IDE says that method not found because loadUser_from_DB() also gives a boolean (=false) if User not found*/
                         //If User is Admin he can add news articles
-                        echo"<div class='text-center'><input type='submit' name='delete_news' value='Delete'/></div>";
-                } else {
+                        echo"<div class='text-center'><form action='".$_SERVER['PHP_SELF']."' name='deletearticle' method='post'><input type='submit' name='delete_news' value='Delete'/>
+                        <input type='hidden' value='".$row1['newsID']."' name='news_id'/></form></div>";
+                } /*else {
                         echo "<div class='text-center'><span style='color:#ff0000;'>Info: Please get admin rights to delete Articles! (Profile.php)</span></div>";
-                    }
+                    }*/
                 } else {
         echo "ERROR: Cannot get user data. (in News.php)";
     }
@@ -93,11 +100,6 @@ echo "</header>";
 
     }
 
-    if (isset($_POST['delete_news'])) {
-        $delete_news = new Newsclass();
-        $delete_news->setnewsID($_POST['newsID']);
-        $delete_news->DB_deleteNews();
-    }
 
     /*if (isset($_POST['delete']))
     {
@@ -109,6 +111,5 @@ echo "</header>";
     ?>
 </section>
 
-</div>
 </body>
 </html>

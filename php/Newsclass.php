@@ -48,6 +48,7 @@ class Newsclass
         return $result;
     }
     function DB_deleteNews() {
+        //var_dump($this->getnewsID());
         $sql = "DELETE FROM News WHERE NewsID=".$this->getnewsID().";";
 
         if(($this->DB_executeSQLstatement($sql))===false) {
