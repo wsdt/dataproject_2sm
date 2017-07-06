@@ -175,8 +175,8 @@ class Marketingcampaign
                 echo "<tr><td><input type='text' name='campaignID' value='" . ($lastrow + 1) . "' readonly/></td>
                     <td><input type='text' name='campaignName'/></td><td><input type='text' name='teamname'/></td>
                     <td><input type='date' name='dateofbegin'/></td><td><input type='date' name='dateofend'/></td>
-                    <td><input type='number' name='companyID' placeholder='Type in companyID not name!'/></td>
-                    <td><input type='number' name='priorityID' placeholder='Type in priorityID not name!'/></td>
+                    <td><input type='number' min='1' max='6' name='companyID' placeholder='Type in companyID not name!'/></td>
+                    <td><input type='number' min='1' max='3' name='priorityID' placeholder='Type in priorityID not name!'/></td>
                     <td><input type='submit' value='Save' name='saveNewCampaign'/></td><td><input type='reset' value='Reset'/></td></tr>";
                 echo "</form>";
             }

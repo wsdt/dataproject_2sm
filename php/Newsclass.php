@@ -54,4 +54,17 @@ class Newsclass
             echo "ERROR: News could not be deleted. (in DB_deleteNews())";
         }
     }
+
+    function closeDBConnection($tunnel) //Tunnel = DB Verbindung/Instanz übergeben
+    {
+        if (!mysqli_close($tunnel)) {
+            echo "FATAL_ERROR: Datenbank-Verbindung konnte nicht geschlossen werden. [in isUsernameAvailable()]";
+        }
+    }
+
+    function establishDBConnection()
+    {
+        return require 'db/dbNewConnection.php'; //Gib Tunnel zurück, return wrschl. nicht mal notwendig
+    }
+
 }
