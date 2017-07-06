@@ -82,10 +82,10 @@ class Marketingcampaign
     }
 
     function DB_insertCampaign() {
-        $sql = "INSERT INTO Campaign VALUES ('".$this->getCampaignName()."','".$this->getTeamname()."','".$this->getDateofbegin()."','".$this->getDateofend()."',
+        $sql = "INSERT INTO Campaign VALUES (".$this->getCampaignID().",'".$this->getCampaignName()."','".$this->getTeamname()."','".$this->getDateofbegin()."','".$this->getDateofend()."',
         ".$this->getCostumerID().",".$this->getPriorityID().");";
 
-        if(!($this->DB_executeSQLstatement($sql))) {
+        if(($this->DB_executeSQLstatement($sql)) === false) {
             echo "ERROR: Campaign could not be inserted. (in DB_insertCampaign())";
         }
     }
@@ -93,7 +93,7 @@ class Marketingcampaign
     function DB_deleteCampaign() {
         $sql = "DELETE FROM Campaign WHERE campaignID=".$this->getCampaignID().";";
 
-        if(!($this->DB_executeSQLstatement($sql))) {
+        if(($this->DB_executeSQLstatement($sql))===false) {
             echo "ERROR: Campaign could not be deleted. (in DB_deleteCampaign())";
         }
     }
@@ -104,7 +104,7 @@ class Marketingcampaign
         dateofend='".$this->getDateofend()."', costumerID=".$this->getCostumerID().",
         teamname=".$this->getTeamname().", priorityID=".$this->getPriorityID().";";
 
-        if(!($this->DB_executeSQLstatement($sql))) {
+        if(($this->DB_executeSQLstatement($sql))===false) {
             echo "ERROR: Campaign could not be updated. (in DB_updateCampaign())";
         }
     }
@@ -138,25 +138,33 @@ class Marketingcampaign
             $lastrow = 0;
 
             while ($row = mysqli_fetch_array($result)) {
+                echo "<form name='form_campaign_row' action='".$_SERVER['PHP_SELF']."' method='post'>";
                 echo "<tr><td>".$row['campaignID']."</td>
                 <td>".$row['campaignName']."</td><td>".$row['teamname']."</td>
                 <td>".$row['dateofbegin']."</td><td>".$row['dateofend']."</td>
                 <td>".$row['companyname']."</td><td style='background-color: " .$row['hexcode']. ";'>&nbsp;</td>";
                 if($curr_user->isAdmin()) {
-                    echo "<td>edit</td><td>delete</td>"; //TODO: als formular nicht mit ajax wenn möglich
+                    echo "<td><edit</td><td><input type='submit' name='delete_campaign' value='Delete'/></td>"; //TODO: als formular nicht mit ajax wenn möglich
                 }
-                echo "</tr>";
+                echo "<input type='hidden' name='campaignID' value='".$row['campaignID']."'/>";
+                /*<input type='hidden' name='campaignName' value='".$row['campaignName']."'/>
+                <input type='hidden' name='teamname' value='".$row['teamname']."'/>
+                <input type='hidden' name='dateofbegin' value='".$row['dateofbegin']."'/>
+                <input type='hidden' name='dateofend' value='".$row['dateofend']."'/>
+                <input type='hidden' name='companyname' value='".$row['companyname']."'/>*/ //TODO: Hier ID nicht name, also irgendwie von abfrage herholen
+
+                echo "</tr></form>";
                 $lastrow = $row['campaignID'];
             }
             //Prüfe ob Admin
             if ($curr_user->isAdmin()) {
-                echo "<form action='" . $_SERVER['PHP_SELF'] . "' name='new_campaign'>";
-                echo "<tr><td><input type='text' name='campaignID' value='" . ($lastrow + 1) . "' disabled/></td>
+                echo "<form action='" . $_SERVER['PHP_SELF'] . "' name='new_campaign' method='post'>";
+                echo "<tr><td><input type='text' name='campaignID' value='" . ($lastrow + 1) . "' readonly/></td>
                     <td><input type='text' name='campaignName'/></td><td><input type='text' name='teamname'/></td>
                     <td><input type='date' name='dateofbegin'/></td><td><input type='date' name='dateofend'/></td>
                     <td><input type='number' name='companyID' placeholder='Type in companyID not name!'/></td>
                     <td><input type='number' name='priorityID' placeholder='Type in priorityID not name!'/></td>
-                    <td><input type='submit' value='Save'/></td><td><input type='reset' value='Reset'/></td></tr>";
+                    <td><input type='submit' value='Save' name='saveNewCampaign'/></td><td><input type='reset' value='Reset'/></td></tr>";
                 echo "</form>";
             }
 

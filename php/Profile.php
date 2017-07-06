@@ -140,11 +140,11 @@ if (!empty($_POST) && isset($_POST['profil_edited'])) {
 
     //Admin changer
     $tmp_user = new Employee();
-    $tmp_user->loadUser_from_DB($_COOKIE['Username']);
+    $tmp_user = $tmp_user->loadUser_from_DB($_COOKIE['Username']);
 
     if (isset($_POST['makeAdmin'])) {
         $tmp_user->makeAdmin();
-    } else {
+    } else if (!isset($_POST['makeAdmin']) && !empty($_POST)){ //sonst beim Aufrufen der Seite keine Admin Rechte mehr
         $tmp_user->unmakeAdmin();
     }
     $tmp_user->DB_updateUser();
