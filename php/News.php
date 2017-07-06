@@ -48,9 +48,9 @@ echo "</header>";
         if (strlen($title) > 0 && strlen($textarea) > 0) {
             $news = "INSERT INTO News (title, newstext) VALUES ('" . $title . "','" . $textarea . "');";
             $pushnews = mysqli_query($tunnel, $news) or DIE ("Fehler: " . mysql_error());
-            echo 'Der Eintrag war erfolgreich';
+            echo "<div class='text-center'>Der Eintrag war erfolgreich</div>";
         } else {
-            echo 'Ihre Angaben sind fehlerhaft.';
+            echo "<div class='text-center'>Fehler: Ihre Angaben sind fehlerhaft</div>";
         }
         mysqli_close($tunnel);
     }
@@ -72,8 +72,21 @@ echo "</header>";
     {
         echo"<h1 class='text-center'>".$row1['title']."</h1>";
         echo"<p class='text-center'>".$row1['newstext']."</p><br><br>";
+        echo"<div class='text-center'><input type='submit' name='delete_news' value='Delete'/></div>";
     }
 
+    if (isset($_POST['delete_news'])) {
+        $delete_news = new Newsclass();
+        $delete_news->setnewsID($_POST['newsID']);
+        $delete_news->DB_deleteNews();
+    }
+
+    /*if (isset($_POST['delete']))
+    {
+        $deletentry="DELETE * FROM News";
+        $isdeleted=mysqli_query($tunnel,$deletentry);
+    }
+    */
     mysqli_close($tunnel);
     ?>
 </section>
