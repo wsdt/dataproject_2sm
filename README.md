@@ -1,4 +1,4 @@
-# dataproject_2sm - Szenario 10 (Abwicklung von Marketingkampagnen)
+# dataproject_2sm - Szenario 10 (Abwicklung von Marketingkampagnen) [![Donate](https://img.shields.io/badge/Donate-Pay%20me%20a%20coffee-3cf)](https://github.com/wsdt/Global/wiki/Donation) [![saythanks](https://img.shields.io/badge/say-thanks-ff69b4.svg)](https://saythanks.io/to/kevin.riedl.privat%40gmail.com)
 - [ ] Projektbericht (PDF) [max. 5 DIN A4 Seiten]
 	- Deckblatt (Bezeichnung Szenario, Namen, Matrikelnummern)
 	- Vorgehen dokumentieren
